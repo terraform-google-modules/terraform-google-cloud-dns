@@ -19,8 +19,19 @@ provider "google" {
   region      = "${var.region}"
 }
 
-module "cloud-dns" {
-	source     = "../../"
-	project_id = "${var.project_id}"
-	region     = "${var.region}"
+# Example A Record
+
+module "cloud_dns" {
+	source                              = "../../"
+	region = ""
+	project_id = ""
+	name                                = "TEST"
+	# DNS Zone
+	enable_dns_managed_zone             = true
+	description                         = "linux-notes.org"
+	dns_name                            = "linux-notes.org."
+	# DNS record
+	enable_dns_record_set               = true
+	managed_zone                        = "test-dns-mz-stage"
+	rrdatas                             = ["8.8.8.8"]
 }
