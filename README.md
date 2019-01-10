@@ -37,7 +37,6 @@ module "cloud_dns_cname" {
 	rrdatas                             = ["www.google.com."]
 }
 
-
 ```
 
 

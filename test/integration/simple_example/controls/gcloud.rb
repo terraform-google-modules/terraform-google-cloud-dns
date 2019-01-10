@@ -19,7 +19,7 @@ title 'Cloud DNS Terraform GCP Test Suite'
 
 gcp_project_id = attribute('gcp_project_id')
 
-control 'spinnaker-vm' do
+control 'cloud-dns-zone' do
   impact 1.0
   title 'Test Cloud DNS Zone was created'
   describe google_dns_managed_zones(project: gcp_project_id) do

@@ -48,7 +48,6 @@ module "cloud_dns_a" {
 	rrdatas                             = ["8.8.8.8"]
 }
 
-
 module "cloud_dns_cname" {
 	source                              = "../../"
 	region 								= "us-central1"

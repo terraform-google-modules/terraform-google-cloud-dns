@@ -24,7 +24,6 @@ resource "google_dns_managed_zone" "dns_managed_zone" {
   dns_name    = "${var.dns_name}"
 
   lifecycle {
-    ignore_changes = []
     create_before_destroy = true
   }
 }
@@ -42,7 +41,6 @@ resource "google_dns_record_set" "dns_record_set" {
   rrdatas         = ["${var.rrdatas}"]
 
   lifecycle {
-    ignore_changes = []
     create_before_destroy = true
   }
 
