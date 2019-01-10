@@ -23,13 +23,13 @@ provider "google" {
 
 module "cloud_dns" {
 	source                              = "../../"
-	region = "us-central1"
-	project_id = "rltech-173716"
+	region 								= "us-central1"
+	project_id 							= "${var.project_id}"
 	name                                = "TEST"
 	# DNS Zone
 	enable_dns_managed_zone             = true
-	description                         = "cft.rootleveltech.net"
-	dns_name                            = "cft.rootleveltech.net."
+	description                         = "cft.example.net"
+	dns_name                            = "cft.example.net."
 	# DNS record
 	enable_dns_record_set               = true
 	managed_zone                        = "test-stage"
