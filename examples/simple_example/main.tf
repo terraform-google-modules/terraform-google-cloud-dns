@@ -21,7 +21,7 @@ provider "google" {
 
 # Example A Record
 
-module "cloud_dns" {
+module "cloud_dns_zone" {
 	source                              = "../../"
 	region 								= "us-central1"
 	project_id 							= "${var.project_id}"
@@ -31,7 +31,35 @@ module "cloud_dns" {
 	description                         = "cft.example.net"
 	dns_name                            = "cft.example.net."
 	# DNS record
+	enable_dns_record_set               = false
+}
+
+module "cloud_dns_a" {
+	source                              = "../../"
+	region 								= "us-central1"
+	project_id 							= "${var.project_id}"
+	name                                = "TEST"
+	# DNS Zone
+	enable_dns_managed_zone             = false
+	dns_name                            = "cft.example.net."
+	# DNS record
 	enable_dns_record_set               = true
-	managed_zone                        = "test-stage"
+	managed_zone                        = "${module.cloud_dns_zone.google_dns_managed_zone_name}"
 	rrdatas                             = ["8.8.8.8"]
+}
+
+
+module "cloud_dns_cname" {
+	source                              = "../../"
+	region 								= "us-central1"
+	project_id 							= "${var.project_id}"
+	name                                = "cname-record"
+	# DNS Zone
+	enable_dns_managed_zone             = false
+	dns_name                            = "cft.example.net."
+	# DNS record
+	enable_dns_record_set               = true
+	type								= "CNAME"
+	managed_zone                        = "${module.cloud_dns_zone.google_dns_managed_zone_name}"
+	rrdatas                             = ["www.google.com."]
 }

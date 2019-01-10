@@ -16,7 +16,7 @@
 
 output "google_dns_managed_zone_name" {
   description = "Name of google dns managed zone"
-  value       = "${google_dns_managed_zone.dns_managed_zone.*.name}"
+  value       = "${google_dns_managed_zone.dns_managed_zone.name}"
 }
 
 output "google_dns_managed_zone_name_servers" {
