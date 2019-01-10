@@ -26,7 +26,7 @@ output "google_dns_managed_zone_name_servers" {
 
 output "google_dns_managed_zone_id" {
   description = "ID"
-  value       = "${google_dns_managed_zone.dns_managed_zone.*.id}"
+  value       = "${google_dns_managed_zone.dns_managed_zone.id}"
 }
 
 output "google_dns_record_set_name" {
