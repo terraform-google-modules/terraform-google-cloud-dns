@@ -23,15 +23,15 @@ provider "google" {
 
 module "cloud_dns" {
 	source                              = "../../"
-	region = ""
-	project_id = ""
+	region = "us-central1"
+	project_id = "rltech-173716"
 	name                                = "TEST"
 	# DNS Zone
 	enable_dns_managed_zone             = true
-	description                         = "linux-notes.org"
-	dns_name                            = "linux-notes.org."
+	description                         = "cft.rootleveltech.net"
+	dns_name                            = "cft.rootleveltech.net."
 	# DNS record
 	enable_dns_record_set               = true
-	managed_zone                        = "test-dns-mz-stage"
+	managed_zone                        = "test-stage"
 	rrdatas                             = ["8.8.8.8"]
 }
