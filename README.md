@@ -20,6 +20,24 @@ module "cloud_dns" {
 	rrdatas                             = ["8.8.8.8"]
 }
 
+# Example CNAME Record
+
+module "cloud_dns_cname" {
+	source                              = "../../"
+	region 								= "us-central1"
+	project_id 							= "${var.project_id}"
+	name                                = "cname-record"
+	# DNS Zone
+	enable_dns_managed_zone             = false
+	dns_name                            = "cft.example.net."
+	# DNS record
+	enable_dns_record_set               = true
+	type								= "CNAME"
+	managed_zone                        = "${module.cloud_dns_zone.google_dns_managed_zone_name}"
+	rrdatas                             = ["www.google.com."]
+}
+
+
 ```
 
 
