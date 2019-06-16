@@ -14,3 +14,22 @@
  * limitations under the License.
  */
 
+module "dns-forwarding-zone" {
+  source     = "../.."
+  project_id = "${var.project_id}"
+  zone_type  = "forwarding"
+  name       = "${var.zone_name}"
+  domain     = "${var.domain}"
+
+  private_visibility_config = [{
+    networks = [{
+      network_url = "${var.network_self_link}"
+    }]
+  }]
+
+  target_name_servers = [{
+    ipv4_address = "8.8.8.8"
+  }, {
+    ipv4_address = "8.8.4.4"
+  }]
+}

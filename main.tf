@@ -44,7 +44,9 @@ resource "google_dns_managed_zone" "peering" {
   private_visibility_config = ["${var.private_visibility_config}"]
 
   peering_config {
-    target_network = "${var.target_network}"
+    target_network {
+      network_url = "${var.target_network}"
+    }
   }
 }
 
