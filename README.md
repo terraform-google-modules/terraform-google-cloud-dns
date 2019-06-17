@@ -78,7 +78,7 @@ The following dependencies must be available:
 
 User or service account credentials with the following roles must be used to provision the resources of this module:
 
-- Storage Admin: `roles/storage.admin`
+- Storage Admin: `roles/dns.admin`
 
 The [Project Factory module][project-factory-module] and the
 [IAM module][iam-module] may be used in combination to provision a
@@ -89,7 +89,7 @@ service account with the necessary roles applied.
 A project with the following APIs enabled must be used to host the
 resources of this module:
 
-- Google Cloud Storage JSON API: `storage-api.googleapis.com`
+- Google Cloud DNS API: `dns.googleapis.com`
 
 The [Project Factory module][project-factory-module] can be used to
 provision a project with the necessary APIs enabled.
