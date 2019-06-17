@@ -11,4 +11,4 @@ and this project adheres to
 
 ### Added
 
-- Initial release. #2
+- Initial release. [#2]
