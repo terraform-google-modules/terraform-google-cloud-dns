@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 module "dns-public-zone" {
   source       = "../.."
-  project_id   = "${var.project_id}"
-  zone_type    = "public"
-  name         = "${var.zone_name}"
-  domain       = "${var.domain}"
+  project_id   = var.project_id
+  type         = "public"
+  name         = var.name
+  domain       = var.domain
   record_names = ["localhost"]
 
   record_data = [

@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,86 +15,102 @@
  */
 
 locals {
-  check_zone_type = "${
-    (var.zone_type != "public" ? 1 : 0)
-    +
-    (var.zone_type != "private" ? 1 : 0)
-    +
-    (var.zone_type != "forwarding" ? 1 : 0)
-    +
-    (var.zone_type != "peering" ? 1 : 0)
-  }"
-
-  is_static_zone = "${var.zone_type == "public" || var.zone_type == "private"}"
-}
-
-resource "null_resource" "invalid_zone" {
-  count                      = "${local.check_zone_type != 3 ? 1 : 0}"
-  "ERROR: invalid zone type" = true
+  is_static_zone = var.type == "public" || var.type == "private"
 }
 
 resource "google_dns_managed_zone" "peering" {
-  count                     = "${var.zone_type == "peering" ? 1 : 0}"
-  provider                  = "google-beta"
-  project                   = "${var.project_id}"
-  name                      = "${var.name}"
-  dns_name                  = "${var.domain}"
-  description               = "Terraform-managed zone."
-  visibility                = "private"
-  private_visibility_config = ["${var.private_visibility_config}"]
+  count       = var.type == "peering" ? 1 : 0
+  provider    = google-beta
+  project     = var.project_id
+  name        = var.name
+  dns_name    = var.domain
+  description = "Terraform-managed zone."
+  visibility  = "private"
+
+  private_visibility_config {
+    dynamic "networks" {
+      for_each = var.private_visibility_config_networks
+      content {
+        network_url = networks.value
+      }
+    }
+  }
 
   peering_config {
     target_network {
-      network_url = "${var.target_network}"
+      network_url = var.target_network
     }
   }
 }
 
 resource "google_dns_managed_zone" "forwarding" {
-  count                     = "${var.zone_type == "forwarding" ? 1 : 0}"
-  provider                  = "google-beta"
-  project                   = "${var.project_id}"
-  name                      = "${var.name}"
-  dns_name                  = "${var.domain}"
-  description               = "Terraform-managed zone."
-  visibility                = "private"
-  private_visibility_config = ["${var.private_visibility_config}"]
+  count       = var.type == "forwarding" ? 1 : 0
+  provider    = google-beta
+  project     = var.project_id
+  name        = var.name
+  dns_name    = var.domain
+  description = "Terraform-managed zone."
+  visibility  = "private"
+
+  private_visibility_config {
+    dynamic "networks" {
+      for_each = var.private_visibility_config_networks
+      content {
+        network_url = networks.value
+      }
+    }
+  }
 
   forwarding_config {
-    target_name_servers = ["${var.target_name_servers}"]
+    dynamic "target_name_servers" {
+      for_each = var.target_name_server_addresses
+      content {
+        ipv4_address = target_name_servers.value
+      }
+    }
   }
 }
 
 resource "google_dns_managed_zone" "private" {
-  count                     = "${var.zone_type == "private" ? 1 : 0}"
-  project                   = "${var.project_id}"
-  name                      = "${var.name}"
-  dns_name                  = "${var.domain}"
-  description               = "Terraform-managed zone."
-  visibility                = "private"
-  private_visibility_config = ["${var.private_visibility_config}"]
+  count       = var.type == "private" ? 1 : 0
+  project     = var.project_id
+  name        = var.name
+  dns_name    = var.domain
+  description = "Terraform-managed zone."
+  visibility  = "private"
+
+  private_visibility_config {
+    dynamic "networks" {
+      for_each = var.private_visibility_config_networks
+      content {
+        network_url = networks.value
+      }
+    }
+  }
 }
 
 resource "google_dns_managed_zone" "public" {
-  count       = "${var.zone_type == "public" ? 1 : 0}"
-  project     = "${var.project_id}"
-  name        = "${var.name}"
-  dns_name    = "${var.domain}"
+  count       = var.type == "public" ? 1 : 0
+  project     = var.project_id
+  name        = var.name
+  dns_name    = var.domain
   description = "Terraform-managed zone."
   visibility  = "public"
 }
 
 resource "google_dns_record_set" "cloud-static-records" {
-  count        = "${local.is_static_zone ? length(var.record_names) : 0}"
-  project      = "${var.project_id}"
-  managed_zone = "${var.name}"
+  count        = local.is_static_zone ? length(var.record_names) : 0
+  project      = var.project_id
+  managed_zone = var.name
   name         = "${element(var.record_names, count.index)}.${var.domain}"
-  type         = "${lookup(var.record_data[count.index], "type")}"
-  ttl          = "${lookup(var.record_data[count.index], "ttl", 300)}"
+  type         = var.record_data[count.index]["type"]
+  ttl          = lookup(var.record_data[count.index], "ttl", 300)
 
-  rrdatas = [
-    "${split(",", lookup(var.record_data[count.index], "rrdatas"))}",
+  rrdatas = split(",", var.record_data[count.index]["rrdatas"])
+
+  depends_on = [
+    google_dns_managed_zone.private,
+    google_dns_managed_zone.public,
   ]
-
-  depends_on = ["google_dns_managed_zone.private", "google_dns_managed_zone.public"]
 }
+

@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,35 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "Project id for the zone."
-  type        = "string"
+###############################################################################
+#                                zone variables                               #
+###############################################################################
+
+variable "domain" {
+  description = "Zone domain, must end with a period."
+  type        = string
 }
 
 variable "name" {
   description = "Zone name, must be unique within the project."
-  type        = "string"
+  type        = string
 }
 
-variable "domain" {
-  description = "Zone domain, must end with a period."
-  type        = "string"
-}
-
-variable "private_visibility_config" {
-  description = "List of private visibility config maps, not used for public zones."
+variable "private_visibility_config_networks" {
+  description = "List of VPC self links that can see this zone."
   default     = []
+  type        = list(string)
+}
+
+variable "project_id" {
+  description = "Project id for the zone."
+  type        = string
+}
+
+variable "target_name_server_addresses" {
+  description = "List of target name servers for forwarding zone."
+  default     = []
+  type        = list(string)
 }
 
 variable "target_network" {
@@ -39,10 +50,15 @@ variable "target_network" {
   default     = ""
 }
 
-variable "target_name_servers" {
-  description = "List of target name servers for forwarding zone."
-  default     = []
+variable "type" {
+  description = "Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'."
+  default     = "private"
+  type        = string
 }
+
+###############################################################################
+#                               record variables                              #
+###############################################################################
 
 variable "record_names" {
   description = "List of record names for static zones."
@@ -52,9 +68,4 @@ variable "record_names" {
 variable "record_data" {
   description = "List of maps with type, rrdatas and optional ttl for static zone records."
   default     = []
-}
-
-variable "zone_type" {
-  description = "Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'."
-  default     = "private"
 }

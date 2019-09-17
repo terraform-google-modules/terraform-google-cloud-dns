@@ -19,7 +19,7 @@ variable "project_id" {
   default     = ""
 }
 
-variable "zone_name" {
+variable "name" {
   description = "DNS zone name."
   default     = "foo-example-org"
 }

@@ -29,7 +29,7 @@ variable "target_network_self_link" {
   default     = ""
 }
 
-variable "zone_name" {
+variable "name" {
   description = "DNS zone name."
   default     = "foo-local"
 }
@@ -38,3 +38,4 @@ variable "domain" {
   description = "Zone domain."
   default     = "foo.local."
 }
+

@@ -16,19 +16,14 @@
 
 module "dns-private-zone" {
   source     = "../.."
-  project_id = "${var.project_id}"
-  zone_type  = "private"
-  name       = "${var.zone_name}"
-  domain     = "${var.domain}"
+  project_id = var.project_id
+  type       = "private"
+  name       = var.name
+  domain     = var.domain
 
-  private_visibility_config = [{
-    networks = [{
-      network_url = "${var.network_self_link}"
-    }]
-  }]
+  private_visibility_config_networks = [var.network_self_link]
 
   record_names = ["localhost"]
-
   record_data = [
     {
       rrdatas = "127.0.0.1"
