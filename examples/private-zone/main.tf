@@ -21,7 +21,7 @@ module "dns-private-zone" {
   name       = var.name
   domain     = var.domain
 
-  private_visibility_config_networks = [var.network_self_link]
+  private_visibility_config_networks = var.network_self_links
 
   record_names = ["localhost"]
   record_data = [

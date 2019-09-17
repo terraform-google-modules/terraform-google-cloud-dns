@@ -15,21 +15,11 @@
  */
 
 variable "project_id" {
-  description = "Project id where the zone will be created."
-  default     = ""
-}
-
-variable "network_self_links" {
-  description = "Self link of the network that will be allowed to query the zone."
-  default     = []
+  description = "The ID of the project in which to provision resources."
+  type        = string
 }
 
 variable "name" {
   description = "DNS zone name."
-  default     = "foo-local"
-}
-
-variable "domain" {
-  description = "Zone domain."
-  default     = "foo.local."
+  default     = "foo-example-org"
 }

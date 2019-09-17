@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "Project id where the zone will be created."
-  default     = ""
-}
 
-variable "network_self_links" {
-  description = "Self link of the network that will be allowed to query the zone."
-  default     = []
-}
-
-variable "name" {
-  description = "DNS zone name."
-  default     = "foo-local"
-}
-
-variable "domain" {
-  description = "Zone domain."
-  default     = "foo.local."
+module "example-public-zone" {
+  source     = "../../../examples/public-zone"
+  project_id = var.project_id
+  name       = var.name
 }

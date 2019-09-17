@@ -11,3 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+control "gcloud" do
+  title "gcloud"
+
+  describe command("gcloud --project=#{attribute("project_id")} services list --enabled") do
+    its(:exit_status) { should eq 0 }
+    its(:stderr) { should eq "" }
+    its(:stdout) { should match "storage-api.googleapis.com" }
+  end
+end
