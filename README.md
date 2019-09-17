@@ -7,23 +7,26 @@ The resources/services/activations/deletions that this module will create/trigge
 - One `google_dns_managed_zone` for the zone
 - Zero or more `google_dns_record_set` for the zone records
 
+## Compatibility
+
+ This module is meant for use with Terraform 0.12. If you haven't [upgraded](https://www.terraform.io/upgrade-guides/0-12.html)
+  and need a Terraform 0.11.x-compatible version of this module, the last released version intended for
+  Terraform 0.11.x is [0.1.0](https://registry.terraform.io/modules/terraform-google-modules/folders/google/0.1.0).
+
 ## Usage
 
 Basic usage of this module for a private zone is as follows:
 
 ```hcl
-module "dns-zone-foo" {
-  source     = "terraform-google-modules/cloud-dns/google"
-  version    = "~> 0.1"
-  project_id = "my-project"
-  zone_type  = "private"
-  name       = "Foo zone."
-  dns_name   = "foo.local."
-  private_visibility_config = [{
-    networks = [{
-      network_url = "my-vpc"
-    }]
-  }]
+module "dns-private-zone" {
+  source     = "../.."
+  project_id = var.project_id
+  type       = "private"
+  name       = var.name
+  domain     = var.domain
+
+  private_visibility_config_networks = [var.network_self_link]
+
   record_names = ["localhost"]
   record_data = [
     {
@@ -32,25 +35,25 @@ module "dns-zone-foo" {
     },
   ]
 }
+
 ```
 
 Functional examples are included in the [examples](./examples/) directory.
 
-[^]: (autogen_docs_start)
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| dns\_name | Zone DNS name. | string | n/a | yes |
-| name | Zone name. | string | n/a | yes |
-| private\_visibility\_config | List of private visibility config maps, not used for public zones. | list | `<list>` | no |
+| domain | Zone domain, must end with a period. | string | n/a | yes |
+| name | Zone name, must be unique within the project. | string | n/a | yes |
+| private\_visibility\_config\_networks | List of VPC self links that can see this zone. | list(string) | `<list>` | no |
 | project\_id | Project id for the zone. | string | n/a | yes |
 | record\_data | List of maps with type, rrdatas and optional ttl for static zone records. | list | `<list>` | no |
 | record\_names | List of record names for static zones. | list | `<list>` | no |
-| target\_name\_servers | List of target name servers for forwarding zone. | list | `<list>` | no |
+| target\_name\_server\_addresses | List of target name servers for forwarding zone. | list(string) | `<list>` | no |
 | target\_network | Peering network. | string | `""` | no |
-| zone\_type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'. | string | `"private"` | no |
+| type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'. | string | `"private"` | no |
 
 ## Outputs
 
@@ -59,9 +62,9 @@ Functional examples are included in the [examples](./examples/) directory.
 | domain | The DNS zone domain. |
 | name | The DNS zone name. |
 | name\_servers | The DNS zone name servers. |
-| zone\_type | The DNS zone type. |
+| type | The DNS zone type. |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Requirements
 
@@ -71,8 +74,8 @@ These sections describe requirements for using this module.
 
 The following dependencies must be available:
 
-- [Terraform][terraform] v0.11
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v2.0
+- [Terraform][terraform] v0.12
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin v2.14
 
 ### Service Account
 
