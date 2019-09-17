@@ -10,6 +10,9 @@ attributes:
   - name: name
     required: true
     type: string
+  - name: domain
+    required: true
+    type: string
   - name: name_servers
     required: true
     type: array

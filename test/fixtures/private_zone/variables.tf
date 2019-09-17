@@ -26,5 +26,5 @@ variable "name" {
 
 variable "domain" {
   description = "DNS zone domain."
-  default     = "foo.private"
+  default     = "foo.private."
 }

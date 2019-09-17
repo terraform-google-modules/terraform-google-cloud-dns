@@ -26,7 +26,7 @@ output "name" {
 
 output "name_servers" {
   description = "Zone name servers."
-  value       = module.example-public-zone.name_servers
+  value       = module.example-private-zone.name_servers
 }
 
 output "project_id" {
