@@ -1,4 +1,4 @@
-# Copyright 2018 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,3 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+control "gcp" do
+  title "GCP Resources"
+
+  describe google_dns_managed_zone(project: attribute('project_id'),  zone: attribute('name')) do
+    it { should exist }
+  end
+
+  describe google_dns_resource_record_sets(project: attribute('project_id'), managed_zone: attribute('name')) do
+    its('count') { should eq 3 }
+    its('types') { should include 'A' }
+    its('targets.flatten') { should include '127.0.0.1' }
+  end
+
+end

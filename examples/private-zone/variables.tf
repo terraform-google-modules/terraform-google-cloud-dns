@@ -19,12 +19,12 @@ variable "project_id" {
   default     = ""
 }
 
-variable "network_self_link" {
+variable "network_self_links" {
   description = "Self link of the network that will be allowed to query the zone."
-  default     = ""
+  default     = []
 }
 
-variable "zone_name" {
+variable "name" {
   description = "DNS zone name."
   default     = "foo-local"
 }

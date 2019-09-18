@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,40 +14,48 @@
  * limitations under the License.
  */
 
-output "zone_type" {
+output "type" {
   description = "The DNS zone type."
-  value       = "${var.zone_type}"
+  value       = var.type
 }
 
 output "name" {
   description = "The DNS zone name."
 
-  value = "${element(concat(
-    google_dns_managed_zone.peering.*.name,
-    google_dns_managed_zone.forwarding.*.name,
-    google_dns_managed_zone.private.*.name,
-    google_dns_managed_zone.public.*.name,
-  ), 0)}"
+  value = element(
+    concat(
+      google_dns_managed_zone.peering.*.name,
+      google_dns_managed_zone.forwarding.*.name,
+      google_dns_managed_zone.private.*.name,
+      google_dns_managed_zone.public.*.name,
+    ),
+    0,
+  )
 }
 
 output "domain" {
   description = "The DNS zone domain."
 
-  value = "${element(concat(
-    google_dns_managed_zone.peering.*.dns_name,
-    google_dns_managed_zone.forwarding.*.dns_name,
-    google_dns_managed_zone.private.*.dns_name,
-    google_dns_managed_zone.public.*.dns_name,
-  ), 0)}"
+  value = element(
+    concat(
+      google_dns_managed_zone.peering.*.dns_name,
+      google_dns_managed_zone.forwarding.*.dns_name,
+      google_dns_managed_zone.private.*.dns_name,
+      google_dns_managed_zone.public.*.dns_name,
+    ),
+    0,
+  )
 }
 
 output "name_servers" {
   description = "The DNS zone name servers."
 
-  value = "${flatten(concat(
-    google_dns_managed_zone.peering.*.name_servers,
-    google_dns_managed_zone.forwarding.*.name_servers,
-    google_dns_managed_zone.private.*.name_servers,
-    google_dns_managed_zone.public.*.name_servers,
-  ))}"
+  value = flatten(
+    concat(
+      google_dns_managed_zone.peering.*.name_servers,
+      google_dns_managed_zone.forwarding.*.name_servers,
+      google_dns_managed_zone.private.*.name_servers,
+      google_dns_managed_zone.public.*.name_servers,
+    ),
+  )
 }

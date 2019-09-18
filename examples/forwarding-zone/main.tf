@@ -16,20 +16,11 @@
 
 module "dns-forwarding-zone" {
   source     = "../.."
-  project_id = "${var.project_id}"
-  zone_type  = "forwarding"
-  name       = "${var.zone_name}"
-  domain     = "${var.domain}"
+  project_id = var.project_id
+  type       = "forwarding"
+  name       = var.name
+  domain     = var.domain
 
-  private_visibility_config = [{
-    networks = [{
-      network_url = "${var.network_self_link}"
-    }]
-  }]
-
-  target_name_servers = [{
-    ipv4_address = "8.8.8.8"
-  }, {
-    ipv4_address = "8.8.4.4"
-  }]
+  private_visibility_config_networks = [var.network_self_link]
+  target_name_server_addresses       = ["8.8.8.8", "8.8.4.4"]
 }

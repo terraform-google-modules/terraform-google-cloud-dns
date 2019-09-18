@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-output "name_servers" {
-  description = "Zone name servers."
-  value       = module.dns-peering-zone.name_servers
+module "example-private-zone" {
+  source     = "../../../examples/private-zone"
+  project_id = var.project_id
+  name       = var.name
+  domain     = var.domain
 }

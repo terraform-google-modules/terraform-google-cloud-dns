@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
-output "name_servers" {
-  description = "Zone name servers."
-  value       = module.dns-peering-zone.name_servers
+variable "project_id" {
+  description = "The ID of the project in which to provision resources."
+  type        = string
+}
+
+variable "name" {
+  description = "DNS zone name."
+  default     = "foo-private"
+}
+
+variable "domain" {
+  description = "DNS zone domain."
+  default     = "foo.private."
 }
