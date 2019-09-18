@@ -19,13 +19,16 @@ Basic usage of this module for a private zone is as follows:
 
 ```hcl
 module "dns-private-zone" {
-  source     = "../.."
-  project_id = var.project_id
+  source  = "terraform-google-modules/cloud-dns/google"
+  version = "2.0.0"
+  project_id = "my-project"
   type       = "private"
-  name       = var.name
-  domain     = var.domain
+  name       = "example-com"
+  domain     = "example.com."
 
-  private_visibility_config_networks = [var.network_self_link]
+  private_visibility_config_networks = [
+    "https://www.googleapis.com/compute/v1/projects/my-project/global/networks/my-vpc"
+  ]
 
   record_names = ["localhost"]
   record_data = [
