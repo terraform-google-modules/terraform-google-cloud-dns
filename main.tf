@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2018 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,4 +113,3 @@ resource "google_dns_record_set" "cloud-static-records" {
     google_dns_managed_zone.public,
   ]
 }
-

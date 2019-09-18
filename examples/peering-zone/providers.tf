@@ -21,4 +21,3 @@ provider "google" {
 provider "google-beta" {
   version = ">= 2.14"
 }
-

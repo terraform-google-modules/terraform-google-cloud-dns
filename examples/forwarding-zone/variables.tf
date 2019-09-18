@@ -33,4 +33,3 @@ variable "domain" {
   description = "Zone domain."
   default     = "foo.local."
 }
-

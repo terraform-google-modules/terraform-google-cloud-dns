@@ -59,4 +59,3 @@ output "name_servers" {
     ),
   )
 }
-

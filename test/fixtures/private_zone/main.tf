@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 module "example-private-zone" {
   source     = "../../../examples/private-zone"
   project_id = var.project_id
