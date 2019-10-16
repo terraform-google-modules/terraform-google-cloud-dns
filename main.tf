@@ -98,23 +98,23 @@ resource "google_dns_managed_zone" "public" {
   visibility  = "public"
 
   dynamic "dnssec_config" {
-    for_each = local.dnssec_config == {} ? [] : list(local.dnssec_config)
+    for_each = var.dnssec_config == {} ? [] : list(var.dnssec_config)
     content {
-      kind          = lookup(local.dnssec_config, "kind", "dns#managedZoneDnsSecConfig")
-      non_existence = lookup(local.dnssec_config, "non_existence", "nsec3")
-      state         = lookup(local.dnssec_config, "state", "off")
+      kind          = lookup(var.dnssec_config, "kind", "dns#managedZoneDnsSecConfig")
+      non_existence = lookup(var.dnssec_config, "non_existence", "nsec3")
+      state         = lookup(var.dnssec_config, "state", "off")
 
       default_key_specs {
-        algorithm  = lookup(local.default_key_specs_key, "algorithm", "rsasha256")
-        key_length = lookup(local.default_key_specs_key, "key_length", 2048)
-        key_type   = lookup(local.default_key_specs_key, "key_type", "keySigning")
-        kind       = lookup(local.default_key_specs_key, "kind", "dns#dnsKeySpec")
+        algorithm  = lookup(var.default_key_specs_key, "algorithm", "rsasha256")
+        key_length = lookup(var.default_key_specs_key, "key_length", 2048)
+        key_type   = lookup(var.default_key_specs_key, "key_type", "keySigning")
+        kind       = lookup(var.default_key_specs_key, "kind", "dns#dnsKeySpec")
       }
       default_key_specs {
-        algorithm  = lookup(local.default_key_specs_zone, "algorithm", "rsasha256")
-        key_length = lookup(local.default_key_specs_zone, "key_length", 1024)
-        key_type   = lookup(local.default_key_specs_zone, "key_type", "zoneSigning")
-        kind       = lookup(local.default_key_specs_zone, "kind", "dns#dnsKeySpec")
+        algorithm  = lookup(var.default_key_specs_zone, "algorithm", "rsasha256")
+        key_length = lookup(var.default_key_specs_zone, "key_length", 1024)
+        key_type   = lookup(var.default_key_specs_zone, "key_type", "zoneSigning")
+        kind       = lookup(var.default_key_specs_zone, "kind", "dns#dnsKeySpec")
       }
     }
   }
