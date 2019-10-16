@@ -30,11 +30,22 @@ module "dns-private-zone" {
     "https://www.googleapis.com/compute/v1/projects/my-project/global/networks/my-vpc"
   ]
 
-  record_names = ["localhost"]
-  record_data = [
+  recordsets = [
     {
-      rrdatas = "127.0.0.1"
+      name    = ""
+      type    = "NS"
+      ttl     = 300
+      records = [
+        "127.0.0.1",
+      ]
+    },
+    {
+      name    = "localhost"
       type    = "A"
+      ttl     = 300
+      records = [
+        "127.0.0.1",
+      ]
     },
   ]
 }
@@ -52,8 +63,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | name | Zone name, must be unique within the project. | string | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | list(string) | `<list>` | no |
 | project\_id | Project id for the zone. | string | n/a | yes |
-| record\_data | List of maps with type, rrdatas and optional ttl for static zone records. | list | `<list>` | no |
-| record\_names | List of record names for static zones. | list | `<list>` | no |
+| recordsets | List of objects with name, type, rrdatas and optional ttl for static zone records. | list | `<list>` | no |
 | target\_name\_server\_addresses | List of target name servers for forwarding zone. | list(string) | `<list>` | no |
 | target\_network | Peering network. | string | `""` | no |
 | type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'. | string | `"private"` | no |

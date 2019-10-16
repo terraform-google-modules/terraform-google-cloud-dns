@@ -23,11 +23,38 @@ module "dns-private-zone" {
 
   private_visibility_config_networks = var.network_self_links
 
-  record_names = ["localhost"]
-  record_data = [
+  recordsets = [
     {
-      rrdatas = "127.0.0.1"
+      name    = ""
+      type    = "NS"
+      ttl     = 300
+      records = [
+        "127.0.0.1",
+      ]
+    },
+    {
+      name    = "localhost"
       type    = "A"
+      ttl     = 300
+      records = [
+        "127.0.0.1",
+      ]
+    },
+    {
+      name    = ""
+      type    = "MX"
+      ttl     = 300
+      records = [
+        "1 localhost.",
+      ]
+    },
+    {
+      name    = ""
+      type    = "TXT"
+      ttl     = 300
+      records = [
+        "\"v=spf1 -all\"",
+      ]
     },
   ]
 }
