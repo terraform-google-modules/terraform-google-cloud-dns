@@ -94,19 +94,47 @@ resource "google_dns_managed_zone" "public" {
   project     = var.project_id
   name        = var.name
   dns_name    = var.domain
-  description = "Terraform-managed zone."
+  description = var.description
   visibility  = "public"
+
+  dynamic "dnssec_config" {
+    for_each = local.dnssec_config == {} ? [] : list( local.dnssec_config)
+    content {
+      kind              = lookup(local.dnssec_config,"kind","dns#managedZoneDnsSecConfig")
+      non_existence     = lookup(local.dnssec_config,"non_existence","nsec3")
+      state             = lookup(local.dnssec_config,"state","off")
+
+      default_key_specs {
+        algorithm  = lookup(local.default_key_specs_key,"algorithm","rsasha256")
+        key_length = lookup(local.default_key_specs_key,"key_length",2048)
+        key_type   = lookup(local.default_key_specs_key,"key_type", "keySigning")
+        kind       = lookup(local.default_key_specs_key,"kind","dns#dnsKeySpec")
+      }
+      default_key_specs {
+        algorithm  = lookup(local.default_key_specs_zone,"algorithm","rsasha256")
+        key_length = lookup(local.default_key_specs_zone,"key_length",1024)
+        key_type   = lookup(local.default_key_specs_zone,"key_type", "zoneSigning")
+        kind       = lookup(local.default_key_specs_zone,"kind","dns#dnsKeySpec")
+      }
+    }
+  }
+
 }
 
 resource "google_dns_record_set" "cloud-static-records" {
-  count        = local.is_static_zone ? length(var.record_names) : 0
-  project      = var.project_id
+  project      = var.project_id != "" ? var.project_id : null
   managed_zone = var.name
-  name         = "${element(var.record_names, count.index)}.${var.domain}"
-  type         = var.record_data[count.index]["type"]
-  ttl          = lookup(var.record_data[count.index], "ttl", 300)
 
-  rrdatas = split(",", var.record_data[count.index]["rrdatas"])
+  for_each = { for record in var.recordsets : join("/", [record.name, record.type]) => record }
+  name = (
+    each.value.name != "" ?
+    "${each.value.name}.${google_dns_managed_zone.zone.dns_name}" :
+    google_dns_managed_zone.zone.dns_name
+  )
+  type = each.value.type
+  ttl  = each.value.ttl
+
+  rrdatas = each.value.records
 
   depends_on = [
     google_dns_managed_zone.private,

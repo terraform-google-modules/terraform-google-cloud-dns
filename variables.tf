@@ -50,22 +50,46 @@ variable "target_network" {
   default     = ""
 }
 
+variable "description" {
+  description = "domain description ( shown in console )"
+  default     = "domain managed by Terraform"
+  type        = string
+}
+
 variable "type" {
   description = "Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'."
   default     = "private"
   type        = string
 }
 
+variable "dnssec_config" {
+  description = "A dnssec_config, please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config"
+  type        = any
+  default     = {}
+}
+
+variable "default_key_specs_key" {
+  type = any
+  default = {}
+}
+
+variable "default_key_specs_zone" {
+  type = any
+  default = {}
+}
+
+
 ###############################################################################
 #                               record variables                              #
 ###############################################################################
 
-variable "record_names" {
-  description = "List of record names for static zones."
-  default     = []
-}
-
-variable "record_data" {
-  description = "List of maps with type, rrdatas and optional ttl for static zone records."
+variable "recordsets" {
+  type = list(object({
+    name    = string
+    type    = string
+    ttl     = number
+    records = list(string)
+  }))
+  description = "List of DNS record objects to manage, in the standard terraform dns structure."
   default     = []
 }
