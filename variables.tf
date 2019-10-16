@@ -69,12 +69,12 @@ variable "dnssec_config" {
 }
 
 variable "default_key_specs_key" {
-  type = any
+  type    = any
   default = {}
 }
 
 variable "default_key_specs_zone" {
-  type = any
+  type    = any
   default = {}
 }
 

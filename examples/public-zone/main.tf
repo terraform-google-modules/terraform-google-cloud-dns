@@ -15,42 +15,41 @@
  */
 
 module "dns-public-zone" {
-  source       = "../.."
-  project_id   = var.project_id
-  type         = "public"
-  name         = var.name
-  domain       = var.domain
-  record_names = ["localhost"]
+  source     = "../.."
+  project_id = var.project_id
+  type       = "public"
+  name       = var.name
+  domain     = var.domain
 
   recordsets = [
     {
-      name    = ""
-      type    = "NS"
-      ttl     = 300
+      name = ""
+      type = "NS"
+      ttl  = 300
       records = [
         "127.0.0.1",
       ]
     },
     {
-      name    = "localhost"
-      type    = "A"
-      ttl     = 300
+      name = "localhost"
+      type = "A"
+      ttl  = 300
       records = [
         "127.0.0.1",
       ]
     },
     {
-      name    = ""
-      type    = "MX"
-      ttl     = 300
+      name = ""
+      type = "MX"
+      ttl  = 300
       records = [
         "1 localhost.",
       ]
     },
     {
-      name    = ""
-      type    = "TXT"
-      ttl     = 300
+      name = ""
+      type = "TXT"
+      ttl  = 300
       records = [
         "\"v=spf1 -all\"",
       ]

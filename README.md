@@ -59,11 +59,15 @@ Functional examples are included in the [examples](./examples/) directory.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| default\_key\_specs\_key |  | any | `<map>` | no |
+| default\_key\_specs\_zone |  | any | `<map>` | no |
+| description | domain description ( shown in console ) | string | `"domain managed by Terraform"` | no |
+| dnssec\_config | A dnssec_config, please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config | any | `<map>` | no |
 | domain | Zone domain, must end with a period. | string | n/a | yes |
 | name | Zone name, must be unique within the project. | string | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | list(string) | `<list>` | no |
 | project\_id | Project id for the zone. | string | n/a | yes |
-| recordsets | List of objects with name, type, rrdatas and optional ttl for static zone records. | list | `<list>` | no |
+| recordsets | List of DNS record objects to manage, in the standard terraform dns structure. | object | `<list>` | no |
 | target\_name\_server\_addresses | List of target name servers for forwarding zone. | list(string) | `<list>` | no |
 | target\_network | Peering network. | string | `""` | no |
 | type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'. | string | `"private"` | no |
