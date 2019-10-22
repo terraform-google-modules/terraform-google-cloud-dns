@@ -99,10 +99,11 @@ resource "google_dns_managed_zone" "public" {
 
   dynamic "dnssec_config" {
     for_each = var.dnssec_config == {} ? [] : list(var.dnssec_config)
+    iterator = config
     content {
-      kind          = lookup(var.dnssec_config, "kind", "dns#managedZoneDnsSecConfig")
-      non_existence = lookup(var.dnssec_config, "non_existence", "nsec3")
-      state         = lookup(var.dnssec_config, "state", "off")
+      kind          = lookup(config, "kind", "dns#managedZoneDnsSecConfig")
+      non_existence = lookup(config, "non_existence", "nsec3")
+      state         = lookup(config, "state", "off")
 
       default_key_specs {
         algorithm  = lookup(var.default_key_specs_key, "algorithm", "rsasha256")
