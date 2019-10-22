@@ -21,10 +21,10 @@ variable "project_id" {
 
 variable "name" {
   description = "DNS zone name."
-  default     = "foo-example-org"
+  default     = "foo-example-invalid-org"
 }
 
 variable "domain" {
   description = "Zone domain."
-  default     = "foo.example.org."
+  default     = "foo.example-invalid.org."
 }

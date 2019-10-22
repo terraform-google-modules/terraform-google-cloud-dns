@@ -25,11 +25,19 @@ module "dns-private-zone" {
 
   recordsets = [
     {
+      name = "ns"
+      type = "A"
+      ttl  = 300
+      records = [
+        "127.0.0.1",
+      ]
+    },
+    {
       name = ""
       type = "NS"
       ttl  = 300
       records = [
-        "127.0.0.1",
+        "ns.${var.domain}",
       ]
     },
     {
