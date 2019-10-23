@@ -63,10 +63,10 @@ Functional examples are included in the [examples](./examples/) directory.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| default\_key\_specs\_key |  | any | `<map>` | no |
-| default\_key\_specs\_zone |  | any | `<map>` | no |
+| default\_key\_specs\_key | Object containing default key signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details | any | `<map>` | no |
+| default\_key\_specs\_zone | Object containing default zone signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details | any | `<map>` | no |
 | description | domain description ( shown in console ) | string | `"domain managed by Terraform"` | no |
-| dnssec\_config | A dnssec_config, please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config | any | `<map>` | no |
+| dnssec\_config | Object containing : kind, non_existence, state. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details | any | `<map>` | no |
 | domain | Zone domain, must end with a period. | string | n/a | yes |
 | name | Zone name, must be unique within the project. | string | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | list(string) | `<list>` | no |

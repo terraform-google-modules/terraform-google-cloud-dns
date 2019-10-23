@@ -63,17 +63,19 @@ variable "type" {
 }
 
 variable "dnssec_config" {
-  description = "A dnssec_config, please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config"
+  description = "Object containing : kind, non_existence, state. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details"
   type        = any
   default     = {}
 }
 
 variable "default_key_specs_key" {
+  description = "Object containing default key signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details"
   type    = any
   default = {}
 }
 
 variable "default_key_specs_zone" {
+  description = "Object containing default zone signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details"
   type    = any
   default = {}
 }
