@@ -13,6 +13,10 @@ The resources/services/activations/deletions that this module will create/trigge
   and need a Terraform 0.12.x-compatible version of this module, the last released version intended for
   Terraform 0.11.x is [1.0.0](https://registry.terraform.io/modules/terraform-google-modules/cloud-dns/google/1.0.0).
 
+## Upgrading
+
+The current version is 3.X. In previous version, you had "record_names" and "record_data", now everything is merge in one unique variable named "recordsets", please see bellow the structure and documentation.
+
 ## Usage
 
 Basic usage of this module for a private zone is as follows:
@@ -30,11 +34,22 @@ module "dns-private-zone" {
     "https://www.googleapis.com/compute/v1/projects/my-project/global/networks/my-vpc"
   ]
 
-  record_names = ["localhost"]
-  record_data = [
+  recordsets = [
     {
-      rrdatas = "127.0.0.1"
+      name    = ""
+      type    = "NS"
+      ttl     = 300
+      records = [
+        "127.0.0.1",
+      ]
+    },
+    {
+      name    = "localhost"
       type    = "A"
+      ttl     = 300
+      records = [
+        "127.0.0.1",
+      ]
     },
   ]
 }
@@ -48,12 +63,15 @@ Functional examples are included in the [examples](./examples/) directory.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| default\_key\_specs\_key | Object containing default key signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details | any | `<map>` | no |
+| default\_key\_specs\_zone | Object containing default zone signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details | any | `<map>` | no |
+| description | domain description ( shown in console ) | string | `"domain managed by Terraform"` | no |
+| dnssec\_config | Object containing : kind, non_existence, state. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details | any | `<map>` | no |
 | domain | Zone domain, must end with a period. | string | n/a | yes |
 | name | Zone name, must be unique within the project. | string | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | list(string) | `<list>` | no |
 | project\_id | Project id for the zone. | string | n/a | yes |
-| record\_data | List of maps with type, rrdatas and optional ttl for static zone records. | list | `<list>` | no |
-| record\_names | List of record names for static zones. | list | `<list>` | no |
+| recordsets | List of DNS record objects to manage, in the standard terraform dns structure. | object | `<list>` | no |
 | target\_name\_server\_addresses | List of target name servers for forwarding zone. | list(string) | `<list>` | no |
 | target\_network | Peering network. | string | `""` | no |
 | type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'. | string | `"private"` | no |
