@@ -70,14 +70,14 @@ variable "dnssec_config" {
 
 variable "default_key_specs_key" {
   description = "Object containing default key signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details"
-  type    = any
-  default = {}
+  type        = any
+  default     = {}
 }
 
 variable "default_key_specs_zone" {
   description = "Object containing default zone signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details"
-  type    = any
-  default = {}
+  type        = any
+  default     = {}
 }
 
 
