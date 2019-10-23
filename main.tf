@@ -123,7 +123,7 @@ resource "google_dns_managed_zone" "public" {
 }
 
 resource "google_dns_record_set" "cloud-static-records" {
-  project      = var.project_id != "" ? var.project_id : null
+  project      = var.project_id
   managed_zone = var.name
 
   for_each = { for record in var.recordsets : join("/", [record.name, record.type]) => record }
