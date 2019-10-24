@@ -13,20 +13,7 @@ The resources/services/activations/deletions that this module will create/trigge
 
 ## Upgrading
 
-The current version is 3.X. In previous versions DNS records were created using `record_names` and `record_data` variables to work around issues using dynamic values and multiple resources, while versions from 3.x onwards use a single  `recordsets` variable.
-
-The new variable is simpler and allows greater flexibility, for example allowing to set zone records which was previously impossible. Its type is declared as
-
-```hcl
-list(object({
-    name    = string
-    type    = string
-    ttl     = number
-    records = list(string)
-  }))
-```
-
-Migrating to the new version will require combining the two older variables into the new one, and will trigger destruction and recreation of DNS records, as the new variable is using `for_each` instead of `count` to manage multiple resources.
+The current version is 3.X. In previous versions DNS records were created using `record_names` and `record_data` variables to work around issues using dynamic values and multiple resources, while versions from 3.x onwards use a single  `recordsets` variable. This changes is incompatible and will trigger recreation of all record resources. More details on upgrading can be found in the [v3.0 migration guide](docs/upgrading_to_v3.0.md).
 
 ## Usage
 
