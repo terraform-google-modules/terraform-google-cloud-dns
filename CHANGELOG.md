@@ -7,11 +7,21 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2019-10-24
+
+### Added
+
+- DNSSEC support. [#4]
+
+### Changed
+
+- Combine DNS records variables into a single one, switch to using `for_each`. [#4]
+
 ## [2.0.0] - 2019-08-18
 
 ### Changed
 
-- Updated for Terraform 0.12. [#2]
+- Updated for Terraform 0.12. [#3]
 - **BREAKING** the `zone_type` variable has been renamed to `type` for uniformity with the `name` and `domain` variables
 - **BREAKING** list/map variables now leverage 0.12 constructs internally, and have been simplified and renamed accordingly:
   - `private_visibility_config` has been renamed to `private_visibility_config_networks` and is now a simple list of VPC self links
@@ -23,3 +33,11 @@ and this project adheres to
 ### Added
 
 - Initial release. [#2]
+
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v1.4.0...HEAD
+[3.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v2.0.0...v3.0.0
+[2.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v1.0.0...v2.0.0
+
+[#4]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/4
+[#3]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/3
+[#2]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/2
