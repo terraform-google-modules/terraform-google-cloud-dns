@@ -15,7 +15,7 @@ and this project adheres to
 
 ### Changed
 
-- **BREAKING**  The `record_names` and `record_data` variables have been combined into `recordsets`, and have switched to using `for_each`. [#4]
+- **BREAKING**  The `record_names` and `record_data` variables have been combined into `recordsets`, and have switched to using `for_each`. Upgrading instructions are in the [v3.0 migration guide](docs/upgrading_to_v3.0.md). [#4]
 
 ## [2.0.0] - 2019-08-18
 

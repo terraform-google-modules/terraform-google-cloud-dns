@@ -11,10 +11,6 @@ The resources/services/activations/deletions that this module will create/trigge
 
  This module is meant for use with Terraform 0.12. If you haven't [upgraded](https://www.terraform.io/upgrade-guides/0-12.html) and need a Terraform 0.12.x-compatible version of this module, the last released version intended for Terraform 0.11.x is [1.0.0](https://registry.terraform.io/modules/terraform-google-modules/cloud-dns/google/1.0.0).
 
-## Upgrading
-
-The current version is 3.X. In previous versions DNS records were created using `record_names` and `record_data` variables to work around issues using dynamic values and multiple resources, while versions from 3.x onwards use a single  `recordsets` variable. This changes is incompatible and will trigger recreation of all record resources. More details on upgrading can be found in the [v3.0 migration guide](docs/upgrading_to_v3.0.md).
-
 ## Usage
 
 Basic usage of this module for a private zone is as follows:
