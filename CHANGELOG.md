@@ -7,6 +7,12 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2020-03-04
+
+### Fixed
+
+- Fix item lookup in dynamic dnssec block. [#6]
+
 ## [3.0.0] - 2019-10-24
 
 ### Added
@@ -35,9 +41,11 @@ and this project adheres to
 - Initial release. [#2]
 
 [Unreleased]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v1.4.0...HEAD
+[3.0.3]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v1.0.0...v2.0.0
 
+[#6]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/6
 [#4]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/4
 [#3]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/3
 [#2]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/2
