@@ -18,7 +18,7 @@ Basic usage of this module for a private zone is as follows:
 ```hcl
 module "dns-private-zone" {
   source  = "terraform-google-modules/cloud-dns/google"
-  version = "2.0.0"
+  version = "3.0.0"
   project_id = "my-project"
   type       = "private"
   name       = "example-com"
