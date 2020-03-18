@@ -51,8 +51,8 @@ variable "target_network" {
 }
 
 variable "description" {
-  description = "domain description ( shown in console )"
-  default     = "domain managed by Terraform"
+  description = "zone description ( shown in console )"
+  default     = "Managed by Terraform"
   type        = string
 }
 
