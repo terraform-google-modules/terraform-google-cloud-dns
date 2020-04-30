@@ -24,7 +24,7 @@ resource "google_dns_managed_zone" "peering" {
   project     = var.project_id
   name        = var.name
   dns_name    = var.domain
-  description = "Terraform-managed zone."
+  description = var.description
   visibility  = "private"
 
   private_visibility_config {
@@ -49,7 +49,7 @@ resource "google_dns_managed_zone" "forwarding" {
   project     = var.project_id
   name        = var.name
   dns_name    = var.domain
-  description = "Terraform-managed zone."
+  description = var.description
   visibility  = "private"
 
   private_visibility_config {
@@ -76,7 +76,7 @@ resource "google_dns_managed_zone" "private" {
   project     = var.project_id
   name        = var.name
   dns_name    = var.domain
-  description = "Terraform-managed zone."
+  description = var.description
   visibility  = "private"
 
   private_visibility_config {
