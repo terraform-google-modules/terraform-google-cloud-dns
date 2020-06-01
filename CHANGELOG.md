@@ -7,6 +7,12 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.2] - 2020-06-01
+
+### Fixed
+
+- Ensured description is properly passed through to zones.
+
 ## [3.0.1] - 2020-03-04
 
 ### Fixed
@@ -40,10 +46,12 @@ and this project adheres to
 
 - Initial release. [#2]
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v1.4.0...HEAD
-[3.0.3]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v3.0.0...v3.0.1
+[3.0.2]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v3.0.1...v3.0.2
+[3.0.1]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v1.0.0...v2.0.0
+[2.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/releases/tag/v1.0.0
 
 [#6]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/6
 [#4]: https://github.com/terraform-google-modules/terraform-google-cloud-dns/pull/4
