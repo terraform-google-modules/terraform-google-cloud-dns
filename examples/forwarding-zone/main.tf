@@ -20,6 +20,7 @@ module "dns-forwarding-zone" {
   type       = "forwarding"
   name       = var.name
   domain     = var.domain
+  labels     = var.labels
 
   private_visibility_config_networks = [var.network_self_link]
   target_name_server_addresses       = ["8.8.8.8", "8.8.4.4"]

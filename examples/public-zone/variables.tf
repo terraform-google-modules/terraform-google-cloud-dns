@@ -28,3 +28,12 @@ variable "domain" {
   description = "Zone domain."
   default     = "foo.example-invalid.org."
 }
+
+variable "labels" {
+  type        = map
+  description = "A set of key/value label pairs to assign to this ManagedZone"
+  default = {
+    owner   = "foo"
+    version = "bar"
+  }
+}

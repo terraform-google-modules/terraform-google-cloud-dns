@@ -20,6 +20,7 @@ module "dns-public-zone" {
   type       = "public"
   name       = var.name
   domain     = var.domain
+  labels     = var.labels
 
   recordsets = [
     {
