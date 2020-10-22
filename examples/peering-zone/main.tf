@@ -22,4 +22,5 @@ module "dns-peering-zone" {
   domain                             = var.domain
   private_visibility_config_networks = [var.network_self_link]
   target_network                     = var.target_network_self_link
+  labels                             = var.labels
 }

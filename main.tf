@@ -25,6 +25,7 @@ resource "google_dns_managed_zone" "peering" {
   name        = var.name
   dns_name    = var.domain
   description = var.description
+  labels      = var.labels
   visibility  = "private"
 
   private_visibility_config {
@@ -50,6 +51,7 @@ resource "google_dns_managed_zone" "forwarding" {
   name        = var.name
   dns_name    = var.domain
   description = var.description
+  labels      = var.labels
   visibility  = "private"
 
   private_visibility_config {
@@ -77,6 +79,7 @@ resource "google_dns_managed_zone" "private" {
   name        = var.name
   dns_name    = var.domain
   description = var.description
+  labels      = var.labels
   visibility  = "private"
 
   private_visibility_config {
@@ -95,6 +98,7 @@ resource "google_dns_managed_zone" "public" {
   name        = var.name
   dns_name    = var.domain
   description = var.description
+  labels      = var.labels
   visibility  = "public"
 
   dynamic "dnssec_config" {

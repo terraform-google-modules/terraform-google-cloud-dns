@@ -68,6 +68,12 @@ variable "dnssec_config" {
   default     = {}
 }
 
+variable "labels" {
+  type        = map
+  description = "A set of key/value label pairs to assign to this ManagedZone"
+  default     = {}
+}
+
 variable "default_key_specs_key" {
   description = "Object containing default key signing specifications : algorithm, key_length, key_type, kind. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details"
   type        = any
