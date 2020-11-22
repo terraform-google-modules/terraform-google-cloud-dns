@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v3.0.2...v3.1.0) (2020-11-22)
+
+
+### Features
+
+* Add support for specifying labels (with var.labels) ([#15](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/issues/15)) ([70ee8ee](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/commit/70ee8ee82391b836f6b36b61b29dc0069d454435))
+
 ## [3.0.2] - 2020-06-01
 
 ### Fixed
