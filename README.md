@@ -97,7 +97,7 @@ The following dependencies must be available:
 
 User or service account credentials with the following roles must be used to provision the resources of this module:
 
-- Storage Admin: `roles/dns.admin`
+- DNS Administrator: `roles/dns.admin`
 
 The [Project Factory module][project-factory-module] and the
 [IAM module][iam-module] may be used in combination to provision a
