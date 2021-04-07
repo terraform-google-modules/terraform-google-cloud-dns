@@ -64,7 +64,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | description | zone description (shown in console) | `string` | `"Managed by Terraform"` | no |
 | dnssec\_config | Object containing : kind, non\_existence, state. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone.html#dnssec_config for futhers details | `any` | `{}` | no |
 | domain | Zone domain, must end with a period. | `string` | n/a | yes |
-| labels | A set of key/value label pairs to assign to this ManagedZone | `map` | `{}` | no |
+| labels | A set of key/value label pairs to assign to this ManagedZone | `map(any)` | `{}` | no |
 | name | Zone name, must be unique within the project. | `string` | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | `list(string)` | `[]` | no |
 | project\_id | Project id for the zone. | `string` | n/a | yes |

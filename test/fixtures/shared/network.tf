@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The ID of the project in which to provision resources."
-  type        = string
+resource "random_string" "suffix" {
+  length  = 4
+  upper   = "false"
+  lower   = "true"
+  number  = "false"
+  special = "false"
 }
 
-variable "name" {
-  description = "DNS zone name."
-  default     = "foo-private"
+resource "google_compute_network" "main" {
+  name                    = "cft-cloud-dns-test-${random_string.suffix.result}"
+  auto_create_subnetworks = false
+  project                 = var.project_id
 }
 
-variable "domain" {
-  description = "DNS zone domain."
-  default     = "foo.private."
-}
-
-variable "region" {
-  description = "The GCP region to deploy instances into"
-  type        = string
-  default     = "us-east4"
+resource "google_compute_subnetwork" "main" {
+  name          = "cft-cloud-dns-test-${random_string.suffix.result}"
+  ip_cidr_range = "10.0.0.0/22"
+  region        = var.region
+  network       = google_compute_network.main.self_link
+  project       = var.project_id
 }

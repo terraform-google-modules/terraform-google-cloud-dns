@@ -22,7 +22,7 @@ module "dns-private-zone" {
   domain     = var.domain
   labels     = var.labels
 
-  private_visibility_config_networks = var.network_self_links
+  private_visibility_config_networks = [var.network_self_links]
 
   recordsets = [
     {
