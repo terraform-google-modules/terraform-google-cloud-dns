@@ -15,12 +15,13 @@
  */
 
 module "dns-public-zone" {
-  source     = "../.."
-  project_id = var.project_id
-  type       = "public"
-  name       = var.name
-  domain     = var.domain
-  labels     = var.labels
+  source                             = "../.."
+  project_id                         = var.project_id
+  type                               = "public"
+  name                               = var.name
+  domain                             = var.domain
+  labels                             = var.labels
+  private_visibility_config_networks = [var.network_self_links]
 
   recordsets = [
     {

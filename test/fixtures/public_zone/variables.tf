@@ -23,3 +23,9 @@ variable "name" {
   description = "DNS zone name."
   default     = "foo-example-invalid-org"
 }
+
+variable "region" {
+  description = "The GCP region to deploy instances into"
+  type        = string
+  default     = "us-east4"
+}

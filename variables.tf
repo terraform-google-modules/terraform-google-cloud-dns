@@ -69,7 +69,7 @@ variable "dnssec_config" {
 }
 
 variable "labels" {
-  type        = map
+  type        = map(any)
   description = "A set of key/value label pairs to assign to this ManagedZone"
   default     = {}
 }

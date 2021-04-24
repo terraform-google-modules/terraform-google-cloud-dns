@@ -16,7 +16,7 @@
 
 module "project" {
   source  = "terraform-google-modules/project-factory/google"
-  version = "~> 9.0"
+  version = "~> 10.2"
 
   name              = "ci-cloud-dns"
   random_project_id = "true"
