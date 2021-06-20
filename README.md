@@ -69,7 +69,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | `list(string)` | `[]` | no |
 | project\_id | Project id for the zone. | `string` | n/a | yes |
 | recordsets | List of DNS record objects to manage, in the standard terraform dns structure. | <pre>list(object({<br>    name    = string<br>    type    = string<br>    ttl     = number<br>    records = list(string)<br>  }))</pre> | `[]` | no |
-| target\_name\_server\_addresses | List of target name servers for forwarding zone. | `list(string)` | `[]` | no |
+| target\_name\_server\_addresses | List of target name servers for forwarding zone. | `list(object({ ipv4_address = string, forwarding_path = string }))` | `[]` | no |
 | target\_network | Peering network. | `string` | `""` | no |
 | type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'. | `string` | `"private"` | no |
 
