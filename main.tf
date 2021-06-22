@@ -67,7 +67,8 @@ resource "google_dns_managed_zone" "forwarding" {
     dynamic "target_name_servers" {
       for_each = var.target_name_server_addresses
       content {
-        ipv4_address = target_name_servers.value
+        ipv4_address    = target_name_servers.value.ipv4_address
+        forwarding_path = target_name_servers.value.forwarding_path
       }
     }
   }

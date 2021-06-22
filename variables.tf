@@ -42,7 +42,7 @@ variable "project_id" {
 variable "target_name_server_addresses" {
   description = "List of target name servers for forwarding zone."
   default     = []
-  type        = list(string)
+  type        = list(map(any))
 }
 
 variable "target_network" {
