@@ -19,14 +19,15 @@ locals {
 }
 
 resource "google_dns_managed_zone" "peering" {
-  count       = var.type == "peering" ? 1 : 0
-  provider    = google-beta
-  project     = var.project_id
-  name        = var.name
-  dns_name    = var.domain
-  description = var.description
-  labels      = var.labels
-  visibility  = "private"
+  count         = var.type == "peering" ? 1 : 0
+  provider      = google-beta
+  project       = var.project_id
+  name          = var.name
+  dns_name      = var.domain
+  description   = var.description
+  labels        = var.labels
+  visibility    = "private"
+  force_destroy = var.force_destroy
 
   private_visibility_config {
     dynamic "networks" {
@@ -45,14 +46,15 @@ resource "google_dns_managed_zone" "peering" {
 }
 
 resource "google_dns_managed_zone" "forwarding" {
-  count       = var.type == "forwarding" ? 1 : 0
-  provider    = google-beta
-  project     = var.project_id
-  name        = var.name
-  dns_name    = var.domain
-  description = var.description
-  labels      = var.labels
-  visibility  = "private"
+  count         = var.type == "forwarding" ? 1 : 0
+  provider      = google-beta
+  project       = var.project_id
+  name          = var.name
+  dns_name      = var.domain
+  description   = var.description
+  labels        = var.labels
+  visibility    = "private"
+  force_destroy = var.force_destroy
 
   private_visibility_config {
     dynamic "networks" {
@@ -75,13 +77,14 @@ resource "google_dns_managed_zone" "forwarding" {
 }
 
 resource "google_dns_managed_zone" "private" {
-  count       = var.type == "private" ? 1 : 0
-  project     = var.project_id
-  name        = var.name
-  dns_name    = var.domain
-  description = var.description
-  labels      = var.labels
-  visibility  = "private"
+  count         = var.type == "private" ? 1 : 0
+  project       = var.project_id
+  name          = var.name
+  dns_name      = var.domain
+  description   = var.description
+  labels        = var.labels
+  visibility    = "private"
+  force_destroy = var.force_destroy
 
   private_visibility_config {
     dynamic "networks" {
@@ -94,13 +97,14 @@ resource "google_dns_managed_zone" "private" {
 }
 
 resource "google_dns_managed_zone" "public" {
-  count       = var.type == "public" ? 1 : 0
-  project     = var.project_id
-  name        = var.name
-  dns_name    = var.domain
-  description = var.description
-  labels      = var.labels
-  visibility  = "public"
+  count         = var.type == "public" ? 1 : 0
+  project       = var.project_id
+  name          = var.name
+  dns_name      = var.domain
+  description   = var.description
+  labels        = var.labels
+  visibility    = "public"
+  force_destroy = var.force_destroy
 
   dynamic "dnssec_config" {
     for_each = var.dnssec_config == {} ? [] : [var.dnssec_config]
