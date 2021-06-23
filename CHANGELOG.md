@@ -7,6 +7,25 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v3.1.0...v4.0.0) (2021-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* `target_name_server_addresses` is now a list of objects, allowing setting `forwarding_path` for each address.
+* add Terraform 0.13 constraint and module attribution (#22)
+
+### Features
+
+* add force_destroy variable for zones ([#29](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/issues/29)) ([8bb8746](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/commit/8bb8746f1d0bccf70fda7af5a946125abb8f03a1))
+* add Terraform 0.13 constraint and module attribution ([#22](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/issues/22)) ([52cd08a](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/commit/52cd08aa53bb3123412ca09b4a9bc63e011a2393))
+* allow setting routing path for `target_name_server_addresses` ([#27](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/issues/27)) ([53955cb](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/commit/53955cbbe10ac5e499cd59cc1574c7bf05880eeb))
+
+
+### Bug Fixes
+
+* Remove deprecated `list()` function ([#28](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/issues/28)) ([7c9cd40](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/commit/7c9cd40a277db164e73a99b22810198657bb0e6d))
+
 ## [3.1.0](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v3.0.2...v3.1.0) (2020-11-22)
 
 
