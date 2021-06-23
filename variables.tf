@@ -86,6 +86,11 @@ variable "default_key_specs_zone" {
   default     = {}
 }
 
+variable "force_destroy" {
+  description = "Set this true to delete all records in the zone."
+  default     = false
+  type        = bool
+}
 
 ###############################################################################
 #                               record variables                              #
