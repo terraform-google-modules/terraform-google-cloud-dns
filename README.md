@@ -1,6 +1,6 @@
 # Terraform Google Cloud DNS Module
 
-This module makes it easy to create Google Cloud DNS zones of different types, and manage their records. It supports creating public, private, forwarding, and peering zones.
+This module makes it easy to create Google Cloud DNS zones of different types, and manage their records. It supports creating public, private, forwarding, peering, reverse_lookup and service directory zones.
 
 The resources/services/activations/deletions that this module will create/trigger are:
 
@@ -71,9 +71,10 @@ Functional examples are included in the [examples](./examples/) directory.
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | `list(string)` | `[]` | no |
 | project\_id | Project id for the zone. | `string` | n/a | yes |
 | recordsets | List of DNS record objects to manage, in the standard terraform dns structure. | <pre>list(object({<br>    name    = string<br>    type    = string<br>    ttl     = number<br>    records = list(string)<br>  }))</pre> | `[]` | no |
+| service\_namespace\_url | The fully qualified or partial URL of the service directory namespace that should be associated with the zone. This should be formatted like https://servicedirectory.googleapis.com/v1/projects/{project}/locations/{location}/namespaces/{namespace_id} or simply projects/{project}/locations/{location}/namespaces/{namespace\_id}. | `string` | `""` | no |
 | target\_name\_server\_addresses | List of target name servers for forwarding zone. | `list(map(any))` | `[]` | no |
 | target\_network | Peering network. | `string` | `""` | no |
-| type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'. | `string` | `"private"` | no |
+| type | Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering', 'reverse\_lookup' and 'service\_directory'. | `string` | `"private"` | no |
 
 ## Outputs
 

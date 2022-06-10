@@ -131,6 +131,55 @@ resource "google_dns_managed_zone" "public" {
 
 }
 
+resource "google_dns_managed_zone" "reverse_lookup" {
+  count          = var.type == "reverse_lookup" ? 1 : 0
+  provider       = google-beta
+  project        = var.project_id
+  name           = var.name
+  dns_name       = var.domain
+  description    = var.description
+  labels         = var.labels
+  visibility     = "private"
+  force_destroy  = var.force_destroy
+  reverse_lookup = true
+
+  private_visibility_config {
+    dynamic "networks" {
+      for_each = var.private_visibility_config_networks
+      content {
+        network_url = networks.value
+      }
+    }
+  }
+}
+
+resource "google_dns_managed_zone" "service_directory" {
+  count         = var.type == "service_directory" ? 1 : 0
+  provider      = google-beta
+  project       = var.project_id
+  name          = var.name
+  dns_name      = var.domain
+  description   = var.description
+  labels        = var.labels
+  visibility    = "private"
+  force_destroy = var.force_destroy
+
+  private_visibility_config {
+    dynamic "networks" {
+      for_each = var.private_visibility_config_networks
+      content {
+        network_url = networks.value
+      }
+    }
+  }
+
+  service_directory_config {
+    namespace {
+      namespace_url = var.service_namespace_url
+    }
+  }
+}
+
 resource "google_dns_record_set" "cloud-static-records" {
   project      = var.project_id
   managed_zone = var.name
