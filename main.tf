@@ -107,7 +107,7 @@ resource "google_dns_managed_zone" "public" {
   force_destroy = var.force_destroy
 
   dynamic "dnssec_config" {
-    for_each = var.dnssec_config == {} ? [] : [var.dnssec_config]
+    for_each = length(var.dnssec_config) == 0 ? [] : [var.dnssec_config]
     iterator = config
     content {
       kind          = lookup(config.value, "kind", "dns#managedZoneDnsSecConfig")
@@ -128,7 +128,6 @@ resource "google_dns_managed_zone" "public" {
       }
     }
   }
-
 }
 
 resource "google_dns_managed_zone" "reverse_lookup" {
