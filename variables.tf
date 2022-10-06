@@ -57,7 +57,7 @@ variable "description" {
 }
 
 variable "type" {
-  description = "Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering'."
+  description = "Type of zone to create, valid values are 'public', 'private', 'forwarding', 'peering', 'reverse_lookup' and 'service_directory'."
   default     = "private"
   type        = string
 }
@@ -90,6 +90,11 @@ variable "force_destroy" {
   description = "Set this true to delete all records in the zone."
   default     = false
   type        = bool
+}
+variable "service_namespace_url" {
+  type        = string
+  default     = ""
+  description = "The fully qualified or partial URL of the service directory namespace that should be associated with the zone. This should be formatted like https://servicedirectory.googleapis.com/v1/projects/{project}/locations/{location}/namespaces/{namespace_id} or simply projects/{project}/locations/{location}/namespaces/{namespace_id}."
 }
 
 ###############################################################################
