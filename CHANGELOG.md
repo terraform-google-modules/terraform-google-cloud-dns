@@ -7,6 +7,18 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v4.1.0...v4.2.0) (2022-11-28)
+
+
+### Features
+
+* add reverse lookup & service dir zone ([#36](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/36)) ([b67b86e](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/b67b86e849ba823181f3830e2057e528941ed26c))
+
+
+### Bug Fixes
+
+* var.dnssec_config set to {} ([#39](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/39)) ([45b3b1b](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/45b3b1b447e37f3eff36890e308a4b0cf5ff8046))
+
 ## [4.1.0](https://www.github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v4.0.0...v4.1.0) (2021-12-22)
 
 
