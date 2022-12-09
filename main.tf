@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-locals {
-  is_static_zone = var.type == "public" || var.type == "private"
-}
-
 resource "google_dns_managed_zone" "peering" {
   count         = var.type == "peering" ? 1 : 0
   provider      = google-beta

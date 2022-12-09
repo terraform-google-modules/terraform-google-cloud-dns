@@ -48,6 +48,7 @@ variable "target_name_server_addresses" {
 variable "target_network" {
   description = "Peering network."
   default     = ""
+  type        = string
 }
 
 variable "description" {
