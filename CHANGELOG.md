@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v4.2.0...v4.2.1) (2022-12-29)
+
+
+### Bug Fixes
+
+* updates for tflint ([#43](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/43)) ([883bfc5](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/883bfc5f9a78052b99caede83ec79bad0608c8db))
+
 ## [4.2.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v4.1.0...v4.2.0) (2022-11-28)
 
 
