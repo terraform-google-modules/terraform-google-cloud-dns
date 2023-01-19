@@ -42,3 +42,9 @@ variable "labels" {
     version = "bar"
   }
 }
+
+variable "enable_logging" {
+  description = "Enable query logging for this ManagedZone"
+  default     = true
+  type        = bool
+}

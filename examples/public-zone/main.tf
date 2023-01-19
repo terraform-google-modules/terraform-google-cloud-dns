@@ -23,6 +23,8 @@ module "dns-public-zone" {
   labels                             = var.labels
   private_visibility_config_networks = [var.network_self_links]
 
+  enable_logging = var.enable_logging
+
   recordsets = [
     {
       name = "ns"

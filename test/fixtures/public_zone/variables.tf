@@ -29,3 +29,9 @@ variable "region" {
   type        = string
   default     = "us-east4"
 }
+
+variable "enable_logging" {
+  description = "Enable query logging for this ManagedZone"
+  default     = false
+  type        = bool
+}
