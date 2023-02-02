@@ -21,7 +21,7 @@ Basic usage of this module for a private zone is as follows:
 ```hcl
 module "dns-private-zone" {
   source  = "terraform-google-modules/cloud-dns/google"
-  version = "3.0.0"
+  version = "4.0"
   project_id = "my-project"
   type       = "private"
   name       = "example-com"
@@ -65,6 +65,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | description | zone description (shown in console) | `string` | `"Managed by Terraform"` | no |
 | dnssec\_config | Object containing : kind, non\_existence, state. Please see https://www.terraform.io/docs/providers/google/r/dns_managed_zone#dnssec_config for futhers details | `any` | `{}` | no |
 | domain | Zone domain, must end with a period. | `string` | n/a | yes |
+| enable\_logging | Enable query logging for this ManagedZone | `bool` | `false` | no |
 | force\_destroy | Set this true to delete all records in the zone. | `bool` | `false` | no |
 | labels | A set of key/value label pairs to assign to this ManagedZone | `map(any)` | `{}` | no |
 | name | Zone name, must be unique within the project. | `string` | n/a | yes |
@@ -96,7 +97,7 @@ These sections describe requirements for using this module.
 The following dependencies must be available:
 
 - [Terraform](https://www.terraform.io/downloads.html) >= 0.13.0
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v2.14
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin >= v4.40
 
 ### Service Account
 

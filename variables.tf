@@ -112,3 +112,9 @@ variable "recordsets" {
   description = "List of DNS record objects to manage, in the standard terraform dns structure."
   default     = []
 }
+
+variable "enable_logging" {
+  description = "Enable query logging for this ManagedZone"
+  default     = false
+  type        = bool
+}
