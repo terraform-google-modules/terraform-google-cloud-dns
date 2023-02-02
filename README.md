@@ -21,7 +21,7 @@ Basic usage of this module for a private zone is as follows:
 ```hcl
 module "dns-private-zone" {
   source  = "terraform-google-modules/cloud-dns/google"
-  version = "3.0.0"
+  version = "4.0"
   project_id = "my-project"
   type       = "private"
   name       = "example-com"
@@ -97,7 +97,7 @@ These sections describe requirements for using this module.
 The following dependencies must be available:
 
 - [Terraform](https://www.terraform.io/downloads.html) >= 0.13.0
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v2.14
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin >= v4.40
 
 ### Service Account
 
