@@ -67,7 +67,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | domain | Zone domain, must end with a period. | `string` | n/a | yes |
 | enable\_logging | Enable query logging for this ManagedZone | `bool` | `false` | no |
 | force\_destroy | Set this true to delete all records in the zone. | `bool` | `false` | no |
-| labels | A set of key/value label pairs to assign to this ManagedZone | `map(any)` | `{}` | no |
+| labels | A set of key/value label pairs to assign to this ManagedZone. Please see https://cloud.google.com/sdk/gcloud/reference/dns/managed-zones/update#--update-labels for key/value character constraints. | `map(any)` | `{}` | no |
 | name | Zone name, must be unique within the project. | `string` | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | `list(string)` | `[]` | no |
 | project\_id | Project id for the zone. | `string` | n/a | yes |
