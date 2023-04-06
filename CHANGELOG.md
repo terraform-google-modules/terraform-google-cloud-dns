@@ -7,6 +7,17 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v4.2.1...v5.0.0) (2023-04-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* add cloud logging option for public DNS ([#47](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/47))
+
+### Features
+
+* add cloud logging option for public DNS ([#47](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/47)) ([c441d5c](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/c441d5c2d623cf590407c870613db77f4e19a6b5))
+
 ## [4.2.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v4.2.0...v4.2.1) (2022-12-29)
 
 
