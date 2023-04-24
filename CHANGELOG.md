@@ -12,6 +12,8 @@ and this project adheres to
 
 ### ⚠ BREAKING CHANGES
 
+* Increased minimum Google Provider version to 4.40 ([#47](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/47))
+
 * add cloud logging option for public DNS ([#47](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/47))
 
 ### Features
