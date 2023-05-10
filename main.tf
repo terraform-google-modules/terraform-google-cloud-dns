@@ -162,6 +162,7 @@ resource "google_dns_managed_zone" "reverse_lookup" {
       }
     }
   }
+}
 
 resource "google_dns_managed_zone" "service_directory" {
   count         = var.type == "service_directory" ? 1 : 0
