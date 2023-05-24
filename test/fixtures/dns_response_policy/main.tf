@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 
-resource "random_string" "suffix" {
-  length  = 4
-  upper   = "false"
-  lower   = "true"
-  numeric = "false"
-  special = "false"
-}
-
-resource "google_compute_network" "main" {
-  name                    = "cft-cloud-dns-test-${random_string.suffix.result}"
-  auto_create_subnetworks = false
-  project                 = var.project_id
+module "example_response_policy" {
+  source             = "../../../examples/dns-response-policy"
+  project_id         = var.project_id
+  policy_name        = var.policy_name
+  network_self_links = [google_compute_network.main.self_link]
 }

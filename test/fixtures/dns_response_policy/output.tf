@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-resource "random_string" "suffix" {
-  length  = 4
-  upper   = "false"
-  lower   = "true"
-  numeric = "false"
-  special = "false"
+
+output "project_id" {
+  description = "Name of the DNS response policy."
+  value       = var.project_id
 }
 
-resource "google_compute_network" "main" {
-  name                    = "cft-cloud-dns-test-${random_string.suffix.result}"
-  auto_create_subnetworks = false
-  project                 = var.project_id
+output "policy_name" {
+  description = "Name of the DNS response policy."
+  value       = var.policy_name
+}
+
+output "response_policy_rule_names" {
+  description = "List of response rules with format projects/{{project}}/responsePolicies/{{response_policy}}/rules/{{rule_name}}."
+  value       = [for rule_name in module.example_response_policy.response_policy_rule_ids : reverse(split("/", rule_name))[0]]
 }
