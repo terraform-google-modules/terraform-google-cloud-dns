@@ -26,7 +26,7 @@ resource "google_dns_managed_zone" "peering" {
   force_destroy = var.force_destroy
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 1 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
     content {
       dynamic "networks" {
         for_each = var.private_visibility_config_networks
@@ -56,7 +56,7 @@ resource "google_dns_managed_zone" "forwarding" {
   force_destroy = var.force_destroy
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 1 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
     content {
       dynamic "networks" {
         for_each = var.private_visibility_config_networks
@@ -71,8 +71,8 @@ resource "google_dns_managed_zone" "forwarding" {
     dynamic "target_name_servers" {
       for_each = var.target_name_server_addresses
       content {
-        ipv4_address    = target_name_servers.value.ipv4_address
-        forwarding_path = try(target_name_servers.value.forwarding_path, null)
+        ipv4_address = target_name_servers.value.ipv4_address
+        forwarding_path = lookup(target_name_servers.value, "forwarding_path", "default")
       }
     }
   }
@@ -89,7 +89,7 @@ resource "google_dns_managed_zone" "private" {
   force_destroy = var.force_destroy
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 1 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
     content {
       dynamic "networks" {
         for_each = var.private_visibility_config_networks
@@ -152,7 +152,7 @@ resource "google_dns_managed_zone" "reverse_lookup" {
   reverse_lookup = true
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 1 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
     content {
       dynamic "networks" {
         for_each = var.private_visibility_config_networks
