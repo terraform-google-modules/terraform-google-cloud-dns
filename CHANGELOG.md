@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.0.0...v5.0.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* add support for empty networks ([#53](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/53)) ([54f6504](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/54f6504b9c034afc8a34fccb3db9de26a1dd702b))
+
 ## [5.0.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v4.2.1...v5.0.0) (2023-04-06)
 
 
