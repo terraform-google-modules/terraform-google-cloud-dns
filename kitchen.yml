@@ -47,13 +47,3 @@ suites:
           backend: gcp
           controls:
             - gcp
-  - name: dns_response_policy
-    driver:
-      root_module_directory: test/fixtures/dns_response_policy/
-    verifier:
-      color: false
-      systems:
-        - name: dns_response_policy gcp
-          backend: local
-          controls:
-            - gcp

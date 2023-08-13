@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
-module "example_response_policy" {
-  source             = "../../../examples/dns-response-policy"
-  project_id         = var.project_id
-  policy_name        = var.policy_name
-  network_self_links = [google_compute_network.main.self_link]
+output "project_id" {
+  description = "Project ID for the DNS response policy."
+  value       = var.project_id
+}
+
+output "response_policy_id" {
+  description = "An identifier for the resource with format projects/{{project}}/responsePolicies/{{response_policy_name}}."
+  value       = module.dns_response_policy.response_policy_id
+}
+
+output "response_policy_rule_ids" {
+  description = "List of response rules with format projects/{{project}}/responsePolicies/{{response_policy}}/rules/{{rule_name}}."
+  value       = module.dns_response_policy.response_policy_rule_ids
 }

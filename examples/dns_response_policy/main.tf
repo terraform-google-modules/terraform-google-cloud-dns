@@ -17,9 +17,9 @@
 module "dns_response_policy" {
   source             = "../../modules/dns_response_policy"
   project_id         = var.project_id
-  policy_name        = var.policy_name
-  network_self_links = var.network_self_links
-  description        = var.description
+  policy_name        = "dns-response-policy-test"
+  network_self_links = [google_compute_network.this.self_link]
+  description        = "Example DNS response policy created by terraform module."
   rules = {
     "override-google-com" = {
       dns_name = "*.google.com."
@@ -45,7 +45,7 @@ module "dns_response_policy" {
     },
     "bypass-google-account-domain" = {
       dns_name      = "account.google.com."
-      rule_behavior = "BYPASS"
+      rule_behavior = "bypassResponsePolicy"
     }
   }
 }

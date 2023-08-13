@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-output "response_policy_id" {
-  description = "An identifier for the resource with format projects/{{project}}/responsePolicies/{{response_policy_name}}."
-  value       = module.dns_response_policy.response_policy_id
+resource "random_string" "suffix" {
+  length  = 4
+  upper   = "false"
+  lower   = "true"
+  numeric = "false"
+  special = "false"
 }
 
-output "response_policy_rule_ids" {
-  description = "List of response rules with format projects/{{project}}/responsePolicies/{{response_policy}}/rules/{{rule_name}}."
-  value       = module.dns_response_policy.response_policy_rule_ids
+resource "google_compute_network" "this" {
+  name                    = "cft-cloud-dns-test-${random_string.suffix.result}"
+  auto_create_subnetworks = false
+  project                 = var.project_id
 }

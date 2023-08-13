@@ -27,3 +27,11 @@ resource "google_compute_network" "main" {
   auto_create_subnetworks = false
   project                 = var.project_id
 }
+
+resource "google_compute_subnetwork" "main" {
+  name          = "cft-cloud-dns-test-${random_string.suffix.result}"
+  ip_cidr_range = "10.0.0.0/22"
+  region        = var.region
+  network       = google_compute_network.main.self_link
+  project       = var.project_id
+}

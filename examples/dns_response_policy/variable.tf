@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.13"
+variable "project_id" {
+  type        = string
+  description = "The ID of the project in which the DNS response policy needs to be created."
 }

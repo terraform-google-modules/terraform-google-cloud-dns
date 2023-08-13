@@ -19,7 +19,6 @@ Cloud DNS private zones let you create a single response policy per network that
 modifies resolver behavior according to the policy created.
 */
 resource "google_dns_response_policy" "this" {
-  provider             = google-beta
   project              = var.project_id
   response_policy_name = var.policy_name
   description          = var.description
@@ -42,10 +41,10 @@ resource "google_dns_response_policy_rule" "this" {
   rule_name       = each.key
   dns_name        = lookup(var.rules[each.key], "dns_name")
   response_policy = google_dns_response_policy.this.response_policy_name
-  behavior        = lookup(var.rules[each.key], "rule_behavior", "") == "BYPASS" ? "bypassResponsePolicy" : null
+  behavior        = lookup(var.rules[each.key], "rule_behavior", null)
 
   dynamic "local_data" {
-    for_each = lookup(var.rules[each.key], "rule_behavior", "") == "BYPASS" ? [] : [1]
+    for_each = lookup(var.rules[each.key], "rule_behavior", "") == "bypassResponsePolicy" ? [] : [1]
     content {
       dynamic "local_datas" {
         for_each = lookup(var.rules[each.key], "rule_local_datas")

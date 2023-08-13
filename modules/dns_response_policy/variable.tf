@@ -31,7 +31,14 @@ variable "network_self_links" {
 }
 
 variable "rules" {
-  type        = any
+  type = map(object({
+    dns_name      = string
+    rule_behavior = optional(string)
+    rule_local_datas = optional(map(object({
+      ttl     = string
+      rrdatas = list(string)
+    })))
+  }))
   description = <<EOF
   A Response Policy Rule is a selector that applies its behavior to queries that match the selector.
   Selectors are DNS names, which may be wildcards or exact matches.
@@ -39,7 +46,7 @@ variable "rules" {
   Key - Name of the rule
   Value - Object of following attributes:
     * dns_name - DNS name where policy will be applied.
-    * rule_behavior - Whether to override or passthru. Use value BYPASS for passthru rules and skip this key for overriding rules.
+    * rule_behavior - Whether to override or passthru. Use value bypassResponsePolicy for passthru rules and skip this key for overriding rules.
     * rule_local_datas - When the rule behavior is override, policy will answer this matched DNS name directly with this DNS data. These resource record sets override any other DNS behavior for the matched name.
       * Each local datas object can contain following attributes:
         Key - One of the valid DNS resource type.
