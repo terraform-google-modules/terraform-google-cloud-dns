@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.0.1...v5.1.0) (2023-08-24)
+
+
+### Features
+
+* add dns response policy sub-module ([#55](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/55)) ([ce34fe5](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/ce34fe53a5e9532cead7c51969eea23bf69929b0))
+
 ## [5.0.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.0.0...v5.0.1) (2023-07-19)
 
 
