@@ -107,8 +107,20 @@ variable "recordsets" {
     name    = string
     type    = string
     ttl     = number
-    records = list(string)
+    records = optional(list(string), null)
+
+    routing_policy = optional(object({
+      wrr = optional(list(object({
+        weight  = number
+        records = list(string)
+      })), [])
+      geo = optional(list(object({
+        location = string
+        records  = list(string)
+      })), [])
+    }))
   }))
+
   description = "List of DNS record objects to manage, in the standard terraform dns structure."
   default     = []
 }
