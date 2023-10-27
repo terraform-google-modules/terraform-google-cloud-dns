@@ -7,6 +7,14 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.1.0...v5.1.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* update for lint ([#63](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/63)) ([c62757f](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/c62757f3ae205cb3cc7d763771de90a105c10bdb))
+* upgraded versions.tf to include minor bumps from tpg v5 ([#68](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/68)) ([48786e6](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/48786e6cce7279d42ea317d3d44d0de7cb7b21b3))
+
 ## [5.1.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.0.1...v5.1.0) (2023-08-24)
 
 
