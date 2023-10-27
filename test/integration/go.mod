@@ -1,6 +1,6 @@
 module github.com/terraform-google-cloud-dns/test/integration
 
-go 1.21
+go 1.20
 
 require (
 	github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test v0.7.0
