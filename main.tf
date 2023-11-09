@@ -206,6 +206,29 @@ resource "google_dns_record_set" "cloud-static-records" {
 
   rrdatas = each.value.records
 
+  dynamic "routing_policy" {
+    for_each = toset(each.value.routing_policy != null ? ["create"] : [])
+    content {
+      dynamic "wrr" {
+        for_each = each.value.routing_policy.wrr
+        iterator = wrr
+        content {
+          weight  = wrr.value.weight
+          rrdatas = wrr.value.records
+        }
+      }
+
+      dynamic "geo" {
+        for_each = each.value.routing_policy.geo
+        iterator = geo
+        content {
+          location = geo.value.location
+          rrdatas  = geo.value.records
+        }
+      }
+    }
+  }
+
   depends_on = [
     google_dns_managed_zone.private,
     google_dns_managed_zone.public,
