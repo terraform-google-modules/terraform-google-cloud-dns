@@ -20,20 +20,20 @@ terraform {
 
     google = {
       source  = "hashicorp/google"
-      version = ">= 4.40, < 5.0"
+      version = ">= 4.40, < 6"
     }
     google-beta = {
       source  = "hashicorp/google-beta"
-      version = ">= 4.40, < 5.0"
+      version = ">= 4.40, < 6"
     }
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.1.0"
+    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.1.1"
   }
 
   provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.1.0"
+    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.1.1"
   }
 
 }
