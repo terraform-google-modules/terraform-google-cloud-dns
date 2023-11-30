@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.1.1...v5.2.0) (2023-11-30)
+
+
+### Features
+
+* Add routing policy wrr and geo to google_dns_record_set ([#67](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/67)) ([1eed464](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/1eed46419ca9734a12909356bfaf48ef59d6120e))
+
 ## [5.1.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.1.0...v5.1.1) (2023-10-27)
 
 
