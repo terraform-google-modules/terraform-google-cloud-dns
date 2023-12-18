@@ -15,7 +15,9 @@
  */
 
 module "dns-peering-zone" {
-  source                             = "../.."
+  source  = "terraform-google-modules/cloud-dns/google"
+  version = "~> 5.0"
+
   project_id                         = var.project_id
   type                               = "peering"
   name                               = var.name
