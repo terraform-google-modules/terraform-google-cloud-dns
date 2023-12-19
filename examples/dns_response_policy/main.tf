@@ -15,7 +15,9 @@
  */
 
 module "dns_response_policy" {
-  source             = "../../modules/dns_response_policy"
+  source  = "terraform-google-modules/cloud-dns/google//modules/dns_response_policy"
+  version = "~> 5.0"
+
   project_id         = var.project_id
   policy_name        = "dns-response-policy-test"
   network_self_links = [google_compute_network.this.self_link]
