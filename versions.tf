@@ -29,11 +29,11 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.2.0"
+    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.3.0"
   }
 
   provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.2.0"
+    module_name = "blueprints/terraform/terraform-google-cloud-dns/v5.3.0"
   }
 
 }
