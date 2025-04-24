@@ -16,7 +16,6 @@
 
 resource "google_dns_managed_zone" "peering" {
   count         = var.type == "peering" ? 1 : 0
-  provider      = google
   project       = var.project_id
   name          = var.name
   dns_name      = var.domain
@@ -46,7 +45,6 @@ resource "google_dns_managed_zone" "peering" {
 
 resource "google_dns_managed_zone" "forwarding" {
   count         = var.type == "forwarding" ? 1 : 0
-  provider      = google
   project       = var.project_id
   name          = var.name
   dns_name      = var.domain
@@ -81,7 +79,6 @@ resource "google_dns_managed_zone" "forwarding" {
 resource "google_dns_managed_zone" "private" {
   count         = var.type == "private" ? 1 : 0
   project       = var.project_id
-  provider      = google
   name          = var.name
   dns_name      = var.domain
   description   = var.description
@@ -105,7 +102,6 @@ resource "google_dns_managed_zone" "private" {
 resource "google_dns_managed_zone" "public" {
   count         = var.type == "public" ? 1 : 0
   project       = var.project_id
-  provider      = google
   name          = var.name
   dns_name      = var.domain
   description   = var.description
@@ -197,7 +193,6 @@ resource "google_dns_managed_zone" "service_directory" {
 
 resource "google_dns_record_set" "cloud-static-records" {
   project      = var.project_id
-  provider     = google
   managed_zone = var.name
 
   for_each = { for record in var.recordsets : join("/", [record.name, record.type]) => record }
