@@ -9,7 +9,7 @@ You can create multiple rules within one response policy with following behavior
 - **Default / Unspecified**: Alter results for selected query names (including wildcards) by providing specific resource records.
 - **Bypass**: Trigger [passthru](https://datatracker.ietf.org/doc/id/draft-vixie-dnsop-dns-rpz-00.html#rfc.section.3.3) behavior that bypasses the response policy, exempting names that would otherwise match.
 
-Reference: https://cloud.google.com/dns/docs/zones/manage-response-policies
+Reference: <https://cloud.google.com/dns/docs/zones/manage-response-policies>
 
 ## Usage
 

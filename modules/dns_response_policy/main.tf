@@ -33,6 +33,8 @@ resource "google_dns_response_policy" "this" {
 /**
 Response policy rules can be created under a response policy to alter results for
 selected query names or trigger passthru behavior that bypasses the response policy.
+
+The feature "behavior" is only present in google-beta provider.
 */
 resource "google_dns_response_policy_rule" "this" {
   for_each        = toset(keys(var.rules))

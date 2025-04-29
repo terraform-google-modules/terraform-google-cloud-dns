@@ -16,7 +16,6 @@
 
 resource "google_dns_managed_zone" "peering" {
   count         = var.type == "peering" ? 1 : 0
-  provider      = google-beta
   project       = var.project_id
   name          = var.name
   dns_name      = var.domain
@@ -46,7 +45,6 @@ resource "google_dns_managed_zone" "peering" {
 
 resource "google_dns_managed_zone" "forwarding" {
   count         = var.type == "forwarding" ? 1 : 0
-  provider      = google-beta
   project       = var.project_id
   name          = var.name
   dns_name      = var.domain
@@ -139,6 +137,7 @@ resource "google_dns_managed_zone" "public" {
   }
 }
 
+# "reverse_lookup" is only available in google-beta
 resource "google_dns_managed_zone" "reverse_lookup" {
   count          = var.type == "reverse_lookup" ? 1 : 0
   provider       = google-beta
@@ -164,6 +163,7 @@ resource "google_dns_managed_zone" "reverse_lookup" {
   }
 }
 
+# "service_directory_config" is only available in google-beta
 resource "google_dns_managed_zone" "service_directory" {
   count         = var.type == "service_directory" ? 1 : 0
   provider      = google-beta
