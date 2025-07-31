@@ -215,7 +215,7 @@ resource "google_dns_record_set" "cloud-static-records" {
         iterator = wrr
         content {
           weight  = wrr.value.weight
-          rrdatas = wrr.value.records
+          rrdatas = try(wrr.value.records, [])
           dynamic "health_checked_targets" {
             for_each = wrr.value.health_checked_targets != null ? [wrr.value.health_checked_targets] : []
             content {
