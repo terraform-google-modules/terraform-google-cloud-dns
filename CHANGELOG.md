@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.1.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v6.0.0...v6.1.0) (2025-08-28)
+
+
+### Features
+
+* **deps:** Update Terraform Google Provider to v7 (major) ([#123](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/123)) ([f9b663f](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/f9b663f44c83874033744a3a2f65259706ab80d5))
+
 ## [6.0.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v5.3.0...v6.0.0) (2025-04-29)
 
 
