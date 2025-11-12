@@ -16,7 +16,7 @@
 
 module "dns-forwarding-zone" {
   source  = "terraform-google-modules/cloud-dns/google"
-  version = "~> 6.0"
+  version = "~> 6.1.0"
 
   project_id = var.project_id
   type       = "forwarding"
@@ -35,4 +35,9 @@ module "dns-forwarding-zone" {
       forwarding_path = "default"
     }
   ]
+
+  iam_choice   = "iam_member"
+  role         = "roles/viewer"
+  member       = "serviceAccount:ci-account@${var.project_id}.iam.gserviceaccount.com"
+  members      = []
 }
