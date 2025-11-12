@@ -16,7 +16,7 @@
 
 variable "project_id" {
   description = "Project id where the zone will be created."
-  default     = ""
+  default     = "proj"
 }
 
 variable "name" {
