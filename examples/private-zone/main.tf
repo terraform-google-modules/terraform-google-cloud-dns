@@ -16,7 +16,7 @@
 
 module "dns-private-zone" {
   source  = "terraform-google-modules/cloud-dns/google"
-  version = "~> 6.0"
+  version = "~> 6.1.0"
 
   project_id = var.project_id
   type       = "private"
@@ -68,4 +68,10 @@ module "dns-private-zone" {
       ]
     },
   ]
+
+  iam_choice   = "iam_policy"
+  managed_zone = "zone1"
+  role         = "roles/viewer"
+  member       = "user:jane@google.com"
+  members      = []
 }
