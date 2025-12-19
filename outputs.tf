@@ -65,3 +65,9 @@ output "name_servers" {
     ),
   )
 }
+
+# Only when iam_policy resource is passed by the user
+output "etag" {
+  description = "The etag of the IAM policy"
+  value       = length(google_dns_managed_zone_iam_policy.managed_zone_iam_policy) > 0 ? google_dns_managed_zone_iam_policy.managed_zone_iam_policy[*].etag : null
+}

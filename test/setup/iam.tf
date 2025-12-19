@@ -16,7 +16,10 @@
 
 locals {
   int_required_roles = [
-    "roles/owner",
+    "roles/iam.serviceAccountAdmin",
+    "roles/iam.serviceAccountUser",
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/serviceusage.serviceUsageAdmin",
     "roles/dns.admin"
   ]
 }
