@@ -118,6 +118,40 @@ variable "recordsets" {
         location = string
         records  = list(string)
       })), [])
+      enable_geo_fencing = optional(bool, false)
+      health_check       = optional(string)
+      primary_backup = optional(object({
+        enable_geo_fencing_for_backups = optional(bool, false)
+        primary = object({
+          internal_load_balancers = optional(list(object({
+            load_balancer_type = string
+            ip_address         = string
+            port               = string
+            ip_protocol        = string
+            network_url        = string
+            project            = string
+            region             = optional(string)
+          })), [])
+          external_endpoints = optional(list(string), [])
+        })
+        backup_geo = list(object({
+          location = string
+          rrdatas  = optional(list(string), [])
+          health_checked_targets = optional(object({
+            internal_load_balancers = optional(list(object({
+              load_balancer_type = string
+              ip_address         = string
+              port               = string
+              ip_protocol        = string
+              network_url        = string
+              project            = string
+              region             = optional(string)
+            })), [])
+            external_endpoints = optional(list(string), [])
+          }))
+        }))
+        trickle_ratio = optional(number, 0.0)
+      }))
     }))
   }))
 
