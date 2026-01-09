@@ -28,6 +28,12 @@ resource "google_dns_response_policy" "this" {
       network_url = networks.value
     }
   }
+  dynamic "gke_clusters" {
+    for_each = toset(var.gke_clusters_list)
+    content {
+      gke_cluster_name = gke_clusters.value
+    }
+  }
 }
 
 /**
