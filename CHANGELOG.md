@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.2.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v6.1.0...v6.2.0) (2026-01-09)
+
+
+### Features
+
+* Add blueprint metadata for cloud dns module ([#129](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/129)) ([edd5ccb](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/edd5ccb136842a13e8e0eca2a7c1e563a0a31640))
+
 ## [6.1.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v6.0.0...v6.1.0) (2025-08-28)
 
 
