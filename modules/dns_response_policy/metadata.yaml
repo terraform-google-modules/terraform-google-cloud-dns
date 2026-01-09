@@ -1,0 +1,109 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-cloud-dns-dns-response-policy
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: gcp_dns_response_policy
+    source:
+      repo: https://github.com/terraform-google-modules/terraform-google-cloud-dns.git
+      sourceType: git
+      dir: /modules/dns_response_policy
+    version: 6.1.0
+    description: {}
+  content:
+    examples:
+      - name: dns_response_policy
+        location: examples/dns_response_policy
+      - name: forwarding-zone
+        location: examples/forwarding-zone
+      - name: peering-zone
+        location: examples/peering-zone
+      - name: private-zone
+        location: examples/private-zone
+      - name: public-zone
+        location: examples/public-zone
+  interfaces:
+    variables:
+      - name: description
+        description: The description of the response policy.
+        varType: string
+        required: true
+      - name: gke_clusters_list
+        description: The list of Google Kubernetes Engine clusters that can see this zone.
+        varType: list(string)
+        defaultValue: []
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-kubernetes-engine//modules/gke-standard-cluster
+              version: ">=38.0.1"
+            spec:
+              outputExpr: cluster_id
+      - name: network_self_links
+        description: The self links of the network to which the dns response policy needs to be applied. Note that only one response policy can be applied on a network.
+        varType: list(string)
+        defaultValue: []
+      - name: policy_name
+        description: Name of the DNS response policy.
+        varType: string
+        required: true
+      - name: project_id
+        description: The ID of the project in which the DNS response policy needs to be created.
+        varType: string
+        required: true
+      - name: rules
+        description: "  A Response Policy Rule is a selector that applies its behavior to queries that match the selector.\n  Selectors are DNS names, which may be wildcards or exact matches.\n  Takes a map as input where the key is the name of the rule. The map contains following attributes:\n  Key - Name of the rule\n  Value - Object of following attributes:\n    * dns_name - DNS name where policy will be applied.\n    * rule_behavior - Whether to override or passthru. Use value bypassResponsePolicy for passthru rules and skip this key for overriding rules.\n    * rule_local_datas - When the rule behavior is override, policy will answer this matched DNS name directly with this DNS data. These resource record sets override any other DNS behavior for the matched name.\n      * Each local datas object can contain following attributes:\n        Key - One of the valid DNS resource type.\n        Value - Object of following attributes:\n           - ttl -  Number of seconds that this ResourceRecordSet can be cached by resolvers.\n           - rrdatas - As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1)\n"
+        varType: |-
+          map(object({
+              dns_name      = string
+              rule_behavior = optional(string)
+              rule_local_datas = optional(map(object({
+                ttl     = string
+                rrdatas = list(string)
+              })))
+            }))
+        required: true
+    outputs:
+      - name: response_policy_id
+        description: An identifier for the resource with format projects/{{project}}/responsePolicies/{{response_policy_name}}.
+        type: string
+      - name: response_policy_rule_ids
+        description: List of response rules with format projects/{{project}}/responsePolicies/{{response_policy}}/rules/{{rule_name}}.
+        type:
+          - list
+          - - string
+            - string
+            - string
+  requirements:
+    roles:
+      - level: Project
+        roles:
+          - roles/iam.serviceAccountAdmin
+          - roles/iam.serviceAccountUser
+          - roles/resourcemanager.projectIamAdmin
+          - roles/serviceusage.serviceUsageAdmin
+          - roles/dns.admin
+          - roles/compute.networkAdmin
+          - roles/accesscontextmanager.policyAdmin
+          - roles/iam.securityAdmin
+    services:
+      - dns.googleapis.com
+      - compute.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - serviceusage.googleapis.com

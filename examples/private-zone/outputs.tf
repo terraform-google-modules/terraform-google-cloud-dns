@@ -18,3 +18,9 @@ output "name_servers" {
   description = "Zone name servers."
   value       = module.dns-private-zone.name_servers
 }
+
+output "etag" {
+  description = "The etag of the IAM policy."
+  value       = module.dns-private-zone.etag
+}
+
