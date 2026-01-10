@@ -94,3 +94,7 @@ spec:
           name: type
           title: Type
           level: 1
+    runtime:
+      outputs:
+        domain:
+          visibility: VISIBILITY_ROOT
