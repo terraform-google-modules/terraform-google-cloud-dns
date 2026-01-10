@@ -47,3 +47,7 @@ spec:
         rules:
           name: rules
           title: Rules
+    runtime:
+      outputs:
+        response_policy_rule_ids:
+          visibility: VISIBILITY_ROOT
