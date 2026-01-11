@@ -88,8 +88,6 @@ spec:
         type:
           - list
           - - string
-            - string
-            - string
   requirements:
     roles:
       - level: Project

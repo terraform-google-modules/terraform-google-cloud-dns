@@ -161,7 +161,7 @@ spec:
         description: The etag of the IAM policy
         type:
           - list
-          - - string
+          - string
       - name: name
         description: The DNS zone name.
         type: string
