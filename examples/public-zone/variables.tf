@@ -21,12 +21,12 @@ variable "project_id" {
 
 variable "name" {
   description = "DNS zone name."
-  default     = "foo-example-invalid-org"
+  default     = "foo-example-org"
 }
 
 variable "domain" {
   description = "Zone domain."
-  default     = "foo.example-invalid.org."
+  default     = "foo.example.org."
 }
 
 variable "network_self_links" {
