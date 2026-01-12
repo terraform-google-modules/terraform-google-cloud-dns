@@ -30,12 +30,6 @@ variable "network_self_links" {
   default     = []
 }
 
-variable "gke_clusters_list" {
-  description = "The list of Google Kubernetes Engine clusters that can see this zone."
-  default     = []
-  type        = list(string)
-}
-
 variable "rules" {
   type = map(object({
     dns_name      = string

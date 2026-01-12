@@ -25,9 +25,6 @@ module "project" {
   billing_account   = var.billing_account
 
   activate_apis = [
-    "dns.googleapis.com",
-    "compute.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
-    "serviceusage.googleapis.com"
+    "dns.googleapis.com"
   ]
 }
