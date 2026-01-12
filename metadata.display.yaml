@@ -55,15 +55,19 @@ spec:
         iam_choice:
           name: iam_choice
           title: Iam Choice
+          level: 1
         labels:
           name: labels
           title: Labels
+          level: 1
         member:
           name: member
           title: Member
+          level: 1
         members:
           name: members
           title: Members
+          level: 1
         name:
           name: name
           title: Name
@@ -81,6 +85,7 @@ spec:
         role:
           name: role
           title: Role
+          level: 1
         service_namespace_url:
           name: service_namespace_url
           title: Service Namespace Url

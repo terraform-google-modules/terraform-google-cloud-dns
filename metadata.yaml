@@ -24,7 +24,7 @@ spec:
     source:
       repo: https://github.com/terraform-google-modules/terraform-google-cloud-dns.git
       sourceType: git
-    version: 6.1.0
+    version: 6.2.0
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
@@ -138,21 +138,17 @@ spec:
         varType: bool
         defaultValue: false
       - name: iam_choice
-        description: Opt 1. iam_binding, 2. iam_member, 3. iam_policy
+        description: Choose one of the following 'iam_binding', 'iam_member' or 'iam_policy' for managed zone iam
         varType: string
-        required: true
       - name: member
-        description: Identities that will be granted the privilege in role
+        description: "Identities the user/service account that will be granted the privilege in role (for case: managed_zone_iam_member)"
         varType: string
-        required: true
       - name: members
-        description: Identities that will be granted the privilege in role
+        description: "Identities the users/service accounts that will be granted the privilege in role (for case: managed_zone_iam_policy, managed_zone_iam_binding)"
         varType: list(string)
-        required: true
       - name: role
         description: The role that should be applied
         varType: string
-        required: true
     outputs:
       - name: domain
         description: The DNS zone domain.
@@ -161,7 +157,7 @@ spec:
         description: The etag of the IAM policy
         type:
           - list
-          - - string
+          - string
       - name: name
         description: The DNS zone name.
         type: string
@@ -169,7 +165,7 @@ spec:
         description: The DNS zone name servers.
         type:
           - list
-          - - string
+          - string
       - name: type
         description: The DNS zone type.
         type: string

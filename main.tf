@@ -15,6 +15,8 @@
  */
 
 data "google_iam_policy" "admin" {
+  count = var.iam_choice == "iam_policy" && var.role != null && var.members != null ? 1 : 0
+
   binding {
     role    = var.role
     members = var.members
@@ -286,11 +288,11 @@ resource "google_dns_record_set" "cloud-static-records" {
 }
 
 resource "google_dns_managed_zone_iam_policy" "managed_zone_iam_policy" {
-  count = var.iam_choice == "iam_policy" ? 1 : 0
+  count = var.iam_choice == "iam_policy" && var.role != null && var.members != null ? 1 : 0
 
   managed_zone = var.name
   project      = var.project_id
-  policy_data  = data.google_iam_policy.admin.policy_data
+  policy_data  = data.google_iam_policy.admin[0].policy_data
 
   depends_on = [
     google_dns_managed_zone.private,
@@ -303,7 +305,7 @@ resource "google_dns_managed_zone_iam_policy" "managed_zone_iam_policy" {
 }
 
 resource "google_dns_managed_zone_iam_binding" "managed_zone_iam_binding" {
-  count = var.iam_choice == "iam_binding" ? 1 : 0
+  count = var.iam_choice == "iam_binding" && var.role != null && var.members != null ? 1 : 0
 
   managed_zone = var.name
   members      = var.members
@@ -321,7 +323,7 @@ resource "google_dns_managed_zone_iam_binding" "managed_zone_iam_binding" {
 }
 
 resource "google_dns_managed_zone_iam_member" "managed_zone_iam_member" {
-  count = var.iam_choice == "iam_member" ? 1 : 0
+  count = var.iam_choice == "iam_member" && var.role != null && var.member != null ? 1 : 0
 
   managed_zone = var.name
   member       = var.member

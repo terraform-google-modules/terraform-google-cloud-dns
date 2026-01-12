@@ -141,27 +141,26 @@ variable "enable_logging" {
 #                             zone_iam variables                              #
 ###############################################################################
 
-#Required variable
 variable "iam_choice" {
-  description = "Opt 1. iam_binding, 2. iam_member, 3. iam_policy"
+  description = "Choose one of the following 'iam_binding', 'iam_member' or 'iam_policy' for managed zone iam"
   type        = string
-  validation {
-    condition     = contains(["iam_binding", "iam_member", "iam_policy"], var.iam_choice)
-    error_message = "Valid values for 'iam_choice' are: 'iam_binding', 'iam_member' or 'iam_policy'."
-  }
+  default     = null
 }
 
 variable "member" {
-  description = "Identities that will be granted the privilege in role"
+  description = "Identities the user/service account that will be granted the privilege in role (for case: managed_zone_iam_member)"
   type        = string
+  default     = null
 }
 
 variable "members" {
-  description = "Identities that will be granted the privilege in role"
+  description = "Identities the users/service accounts that will be granted the privilege in role (for case: managed_zone_iam_policy, managed_zone_iam_binding)"
   type        = list(string)
+  default     = null
 }
 
 variable "role" {
   description = "The role that should be applied"
   type        = string
+  default     = null
 }
