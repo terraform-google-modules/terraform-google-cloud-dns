@@ -7,6 +7,14 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.2.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v6.2.0...v6.2.1) (2026-01-12)
+
+
+### Bug Fixes
+
+* Adding output variables with VISIBILITY_ROOT ([#133](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/133)) ([bda8e40](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/bda8e40e1ca860b14e13d1624868d6de9fb37156))
+* Revert "feat: Add blueprint metadata for cloud dns module ([#129](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/129))" ([#136](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/136)) ([b09ec74](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/b09ec743c4066976f05095aa50cc461120d2ba46))
+
 ## [6.2.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v6.1.0...v6.2.0) (2026-01-09)
 
 
