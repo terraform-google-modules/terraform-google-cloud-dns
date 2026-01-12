@@ -59,7 +59,6 @@ module "dns_response_policy" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | description | The description of the response policy. | `string` | n/a | yes |
-| gke\_clusters\_list | The list of Google Kubernetes Engine clusters that can see this zone. | `list(string)` | `[]` | no |
 | network\_self\_links | The self links of the network to which the dns response policy needs to be applied. Note that only one response policy can be applied on a network. | `list(string)` | `[]` | no |
 | policy\_name | Name of the DNS response policy. | `string` | n/a | yes |
 | project\_id | The ID of the project in which the DNS response policy needs to be created. | `string` | n/a | yes |

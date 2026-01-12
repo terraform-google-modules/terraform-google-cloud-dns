@@ -16,7 +16,7 @@
 
 module "dns-peering-zone" {
   source  = "terraform-google-modules/cloud-dns/google"
-  version = "~> 6.1.0"
+  version = "~> 6.0"
 
   project_id                         = var.project_id
   type                               = "peering"
@@ -25,9 +25,4 @@ module "dns-peering-zone" {
   private_visibility_config_networks = [var.network_self_link]
   target_network                     = var.target_network_self_link
   labels                             = var.labels
-
-  iam_choice   = "iam_member"
-  role         = "roles/viewer"
-  member       = "serviceAccount:ci-account@${var.project_id}.gserviceaccount.com"
-  members      = []
 }
