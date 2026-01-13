@@ -209,6 +209,9 @@ resource "google_dns_record_set" "cloud-static-records" {
   dynamic "routing_policy" {
     for_each = toset(each.value.routing_policy != null ? ["create"] : [])
     content {
+      enable_geo_fencing = each.value.routing_policy.enable_geo_fencing
+      health_check       = each.value.routing_policy.health_check
+
       dynamic "wrr" {
         for_each = each.value.routing_policy.wrr
         iterator = wrr
@@ -224,6 +227,57 @@ resource "google_dns_record_set" "cloud-static-records" {
         content {
           location = geo.value.location
           rrdatas  = geo.value.records
+        }
+      }
+
+      dynamic "primary_backup" {
+        for_each = each.value.routing_policy.primary_backup != null ? [each.value.routing_policy.primary_backup] : []
+        content {
+          enable_geo_fencing_for_backups = primary_backup.value.enable_geo_fencing_for_backups
+          trickle_ratio                  = primary_backup.value.trickle_ratio
+
+          primary {
+            dynamic "internal_load_balancers" {
+              for_each = primary_backup.value.primary.internal_load_balancers
+              content {
+                load_balancer_type = internal_load_balancers.value.load_balancer_type
+                ip_address         = internal_load_balancers.value.ip_address
+                port               = internal_load_balancers.value.port
+                ip_protocol        = internal_load_balancers.value.ip_protocol
+                network_url        = internal_load_balancers.value.network_url
+                project            = internal_load_balancers.value.project
+                region             = internal_load_balancers.value.region
+              }
+            }
+            external_endpoints = primary_backup.value.primary.external_endpoints
+          }
+
+          dynamic "backup_geo" {
+            for_each = primary_backup.value.backup_geo
+            content {
+              location = backup_geo.value.location
+              rrdatas  = backup_geo.value.rrdatas
+
+              dynamic "health_checked_targets" {
+                for_each = backup_geo.value.health_checked_targets != null ? [backup_geo.value.health_checked_targets] : []
+                content {
+                  dynamic "internal_load_balancers" {
+                    for_each = health_checked_targets.value.internal_load_balancers
+                    content {
+                      load_balancer_type = internal_load_balancers.value.load_balancer_type
+                      ip_address         = internal_load_balancers.value.ip_address
+                      port               = internal_load_balancers.value.port
+                      ip_protocol        = internal_load_balancers.value.ip_protocol
+                      network_url        = internal_load_balancers.value.network_url
+                      project            = internal_load_balancers.value.project
+                      region             = internal_load_balancers.value.region
+                    }
+                  }
+                  external_endpoints = health_checked_targets.value.external_endpoints
+                }
+              }
+            }
+          }
         }
       }
     }

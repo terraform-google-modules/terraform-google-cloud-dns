@@ -55,6 +55,120 @@ module "dns-private-zone" {
 
 Functional examples are included in the [examples](./examples/) directory.
 
+## Routing Policies
+
+This module supports multiple routing policies for DNS records:
+
+### Weighted Round Robin (WRR)
+Distributes traffic across multiple resources based on assigned weights.
+
+```hcl
+recordsets = [
+  {
+    name    = "www"
+    type    = "A"
+    ttl     = 300
+    records = null
+    routing_policy = {
+      wrr = [
+        {
+          weight  = 0.7
+          records = ["192.168.1.1"]
+        },
+        {
+          weight  = 0.3
+          records = ["192.168.1.2"]
+        }
+      ]
+      geo = []
+    }
+  }
+]
+```
+
+### Geolocation (GEO)
+Routes traffic based on the geographic location of the query source.
+
+```hcl
+recordsets = [
+  {
+    name    = "www"
+    type    = "A"
+    ttl     = 300
+    records = null
+    routing_policy = {
+      wrr = []
+      geo = [
+        {
+          location = "us-east1"
+          records  = ["10.1.0.1"]
+        },
+        {
+          location = "europe-west1"
+          records  = ["10.2.0.1"]
+        }
+      ]
+    }
+  }
+]
+```
+
+### Primary Backup (Failover)
+Defines primary resources with automatic failover to backup resources based on health checks.
+
+```hcl
+recordsets = [
+  {
+    name    = "api"
+    type    = "A"
+    ttl     = 300
+    records = null
+    routing_policy = {
+      wrr                = []
+      geo                = []
+      enable_geo_fencing = false
+      health_check       = "https://www.googleapis.com/compute/v1/projects/PROJECT_ID/global/healthChecks/my-health-check"
+      
+      primary_backup = {
+        enable_geo_fencing_for_backups = false
+        trickle_ratio                  = 0.1
+        
+        primary = {
+          internal_load_balancers = []
+          external_endpoints      = ["10.0.0.1", "10.0.0.2"]
+        }
+        
+        backup_geo = [
+          {
+            location               = "us-east1"
+            rrdatas                = []
+            health_checked_targets = {
+              internal_load_balancers = []
+              external_endpoints      = ["10.1.0.1"]
+            }
+          }
+        ]
+      }
+    }
+  }
+]
+```
+
+**Primary Backup Parameters:**
+- `enable_geo_fencing` (bool): Enables geo-fencing for the routing policy (root level)
+- `enable_geo_fencing_for_backups` (bool): Restricts backups to specific geographic locations
+- `trickle_ratio` (number): Percentage of traffic sent to backups during failover (0.0 to 1.0)
+- `primary` (object): Primary resources configuration
+  - `internal_load_balancers`: List of internal load balancers (regionalL4ilb, regionalL7ilb, globalL7ilb)
+  - `external_endpoints`: List of external IPs
+- `backup_geo` (list): List of geographic backups
+  - `location`: GCP region (e.g., us-east1, europe-west1)
+  - `rrdatas`: Static IPs (for backups without health check)
+  - `health_checked_targets`: Targets with health monitoring
+- `health_check` (string): URL of the health check resource (root level)
+
+See the [primary_backup_routing example](./examples/primary_backup_routing/) for a complete implementation.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
@@ -71,7 +185,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | name | Zone name, must be unique within the project. | `string` | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | `list(string)` | `[]` | no |
 | project\_id | Project id for the zone. | `string` | n/a | yes |
-| recordsets | List of DNS record objects to manage, in the standard terraform dns structure. | <pre>list(object({<br>    name    = string<br>    type    = string<br>    ttl     = number<br>    records = optional(list(string), null)<br><br>    routing_policy = optional(object({<br>      wrr = optional(list(object({<br>        weight  = number<br>        records = list(string)<br>      })), [])<br>      geo = optional(list(object({<br>        location = string<br>        records  = list(string)<br>      })), [])<br>    }))<br>  }))</pre> | `[]` | no |
+| recordsets | List of DNS record objects to manage, in the standard terraform dns structure. Supports simple records and advanced routing policies (WRR, GEO, Primary Backup). | <pre>list(object({<br>    name    = string<br>    type    = string<br>    ttl     = number<br>    records = optional(list(string), null)<br><br>    routing_policy = optional(object({<br>      wrr = optional(list(object({<br>        weight  = number<br>        records = list(string)<br>      })), [])<br>      geo = optional(list(object({<br>        location = string<br>        records  = list(string)<br>      })), [])<br>      enable_geo_fencing = optional(bool, false)<br>      health_check       = optional(string)<br>      primary_backup = optional(object({<br>        enable_geo_fencing_for_backups = optional(bool, false)<br>        primary = object({<br>          internal_load_balancers = optional(list(object({<br>            load_balancer_type = string<br>            ip_address         = string<br>            port               = string<br>            ip_protocol        = string<br>            network_url        = string<br>            project            = string<br>            region             = optional(string)<br>          })), [])<br>          external_endpoints = optional(list(string), [])<br>        })<br>        backup_geo = list(object({<br>          location = string<br>          rrdatas  = optional(list(string), [])<br>          health_checked_targets = optional(object({<br>            internal_load_balancers = optional(list(object({<br>              load_balancer_type = string<br>              ip_address         = string<br>              port               = string<br>              ip_protocol        = string<br>              network_url        = string<br>              project            = string<br>              region             = optional(string)<br>            })), [])<br>            external_endpoints = optional(list(string), [])<br>          }))<br>        }))<br>        trickle_ratio = optional(number, 0.0)<br>      }))<br>    }))<br>  }))</pre> | `[]` | no |
 | service\_namespace\_url | The fully qualified or partial URL of the service directory namespace that should be associated with the zone. This should be formatted like https://servicedirectory.googleapis.com/v1/projects/{project}/locations/{location}/namespaces/{namespace_id} or simply projects/{project}/locations/{location}/namespaces/{namespace\_id}. | `string` | `""` | no |
 | target\_name\_server\_addresses | List of target name servers for forwarding zone. | `list(map(any))` | `[]` | no |
 | target\_network | Peering network. | `string` | `""` | no |
