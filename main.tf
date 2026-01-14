@@ -209,15 +209,32 @@ resource "google_dns_record_set" "cloud-static-records" {
   dynamic "routing_policy" {
     for_each = toset(each.value.routing_policy != null ? ["create"] : [])
     content {
+      health_check  = try(each.value.routing_policy.health_check, null)
       dynamic "wrr" {
         for_each = each.value.routing_policy.wrr
         iterator = wrr
         content {
           weight  = wrr.value.weight
-          rrdatas = wrr.value.records
+          rrdatas = try(wrr.value.records, [])
+          dynamic "health_checked_targets" {
+            for_each = wrr.value.health_checked_targets != null ? [wrr.value.health_checked_targets] : []
+            content {
+              dynamic "internal_load_balancers" {
+                for_each = health_checked_targets.value.internal_load_balancers != null ? health_checked_targets.value.internal_load_balancers : []
+                content {
+                  ip_address   = internal_load_balancers.value.ip_address
+                  port         = internal_load_balancers.value.port
+                  project      = internal_load_balancers.value.project
+                  region       = internal_load_balancers.value.region
+                  network_url  = internal_load_balancers.value.network_url
+                  ip_protocol  = internal_load_balancers.value.ip_protocol
+                }
+              }
+              external_endpoints = try(health_checked_targets.value.external_endpoints, null)
+            }
+          }
         }
       }
-
       dynamic "geo" {
         for_each = each.value.routing_policy.geo
         iterator = geo
@@ -228,7 +245,6 @@ resource "google_dns_record_set" "cloud-static-records" {
       }
     }
   }
-
   depends_on = [
     google_dns_managed_zone.private,
     google_dns_managed_zone.public,
