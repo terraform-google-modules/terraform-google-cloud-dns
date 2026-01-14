@@ -14,6 +14,15 @@
  * limitations under the License.
  */
 
+data "google_iam_policy" "admin" {
+  count = var.iam_choice == "iam_policy" && var.role != null && var.members != null ? 1 : 0
+
+  binding {
+    role    = var.role
+    members = var.members
+  }
+}
+
 resource "google_dns_managed_zone" "peering" {
   count         = var.type == "peering" ? 1 : 0
   project       = var.project_id
@@ -25,12 +34,20 @@ resource "google_dns_managed_zone" "peering" {
   force_destroy = var.force_destroy
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 || length(var.gke_clusters_list) > 0 ? [1] : []
+
     content {
       dynamic "networks" {
-        for_each = var.private_visibility_config_networks
+        for_each = toset(var.private_visibility_config_networks)
         content {
           network_url = networks.value
+        }
+      }
+
+      dynamic "gke_clusters" {
+        for_each = toset(var.gke_clusters_list)
+        content {
+          gke_cluster_name = gke_clusters.value
         }
       }
     }
@@ -54,12 +71,20 @@ resource "google_dns_managed_zone" "forwarding" {
   force_destroy = var.force_destroy
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 || length(var.gke_clusters_list) > 0 ? [1] : []
+
     content {
       dynamic "networks" {
-        for_each = var.private_visibility_config_networks
+        for_each = toset(var.private_visibility_config_networks)
         content {
           network_url = networks.value
+        }
+      }
+
+      dynamic "gke_clusters" {
+        for_each = toset(var.gke_clusters_list)
+        content {
+          gke_cluster_name = gke_clusters.value
         }
       }
     }
@@ -87,12 +112,20 @@ resource "google_dns_managed_zone" "private" {
   force_destroy = var.force_destroy
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 || length(var.gke_clusters_list) > 0 ? [1] : []
+
     content {
       dynamic "networks" {
-        for_each = var.private_visibility_config_networks
+        for_each = toset(var.private_visibility_config_networks)
         content {
           network_url = networks.value
+        }
+      }
+
+      dynamic "gke_clusters" {
+        for_each = toset(var.gke_clusters_list)
+        content {
+          gke_cluster_name = gke_clusters.value
         }
       }
     }
@@ -151,12 +184,20 @@ resource "google_dns_managed_zone" "reverse_lookup" {
   reverse_lookup = true
 
   dynamic "private_visibility_config" {
-    for_each = length(var.private_visibility_config_networks) > 0 ? [1] : []
+    for_each = length(var.private_visibility_config_networks) > 0 || length(var.gke_clusters_list) > 0 ? [1] : []
+
     content {
       dynamic "networks" {
-        for_each = var.private_visibility_config_networks
+        for_each = toset(var.private_visibility_config_networks)
         content {
           network_url = networks.value
+        }
+      }
+
+      dynamic "gke_clusters" {
+        for_each = toset(var.gke_clusters_list)
+        content {
+          gke_cluster_name = gke_clusters.value
         }
       }
     }
@@ -175,11 +216,22 @@ resource "google_dns_managed_zone" "service_directory" {
   visibility    = "private"
   force_destroy = var.force_destroy
 
-  private_visibility_config {
-    dynamic "networks" {
-      for_each = var.private_visibility_config_networks
-      content {
-        network_url = networks.value
+  dynamic "private_visibility_config" {
+    for_each = length(var.private_visibility_config_networks) > 0 || length(var.gke_clusters_list) > 0 ? [1] : []
+
+    content {
+      dynamic "networks" {
+        for_each = toset(var.private_visibility_config_networks)
+        content {
+          network_url = networks.value
+        }
+      }
+
+      dynamic "gke_clusters" {
+        for_each = toset(var.gke_clusters_list)
+        content {
+          gke_cluster_name = gke_clusters.value
+        }
       }
     }
   }
@@ -232,5 +284,58 @@ resource "google_dns_record_set" "cloud-static-records" {
   depends_on = [
     google_dns_managed_zone.private,
     google_dns_managed_zone.public,
+  ]
+}
+
+resource "google_dns_managed_zone_iam_policy" "managed_zone_iam_policy" {
+  count = var.iam_choice == "iam_policy" && var.role != null && var.members != null ? 1 : 0
+
+  managed_zone = var.name
+  project      = var.project_id
+  policy_data  = data.google_iam_policy.admin[0].policy_data
+
+  depends_on = [
+    google_dns_managed_zone.private,
+    google_dns_managed_zone.public,
+    google_dns_managed_zone.peering,
+    google_dns_managed_zone.forwarding,
+    google_dns_managed_zone.reverse_lookup,
+    google_dns_managed_zone.service_directory,
+  ]
+}
+
+resource "google_dns_managed_zone_iam_binding" "managed_zone_iam_binding" {
+  count = var.iam_choice == "iam_binding" && var.role != null && var.members != null ? 1 : 0
+
+  managed_zone = var.name
+  members      = var.members
+  role         = var.role
+  project      = var.project_id
+
+  depends_on = [
+    google_dns_managed_zone.private,
+    google_dns_managed_zone.public,
+    google_dns_managed_zone.peering,
+    google_dns_managed_zone.forwarding,
+    google_dns_managed_zone.reverse_lookup,
+    google_dns_managed_zone.service_directory,
+  ]
+}
+
+resource "google_dns_managed_zone_iam_member" "managed_zone_iam_member" {
+  count = var.iam_choice == "iam_member" && var.role != null && var.member != null ? 1 : 0
+
+  managed_zone = var.name
+  member       = var.member
+  role         = var.role
+  project      = var.project_id
+
+  depends_on = [
+    google_dns_managed_zone.private,
+    google_dns_managed_zone.public,
+    google_dns_managed_zone.peering,
+    google_dns_managed_zone.forwarding,
+    google_dns_managed_zone.reverse_lookup,
+    google_dns_managed_zone.service_directory,
   ]
 }

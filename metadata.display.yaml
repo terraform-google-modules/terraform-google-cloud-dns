@@ -1,0 +1,105 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-cloud-dns-display
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: Terraform Google Cloud DNS Module
+    source:
+      repo: https://github.com/terraform-google-modules/terraform-google-cloud-dns.git
+      sourceType: git
+  ui:
+    input:
+      variables:
+        default_key_specs_key:
+          name: default_key_specs_key
+          title: Default Key Specs Key
+        default_key_specs_zone:
+          name: default_key_specs_zone
+          title: Default Key Specs Zone
+        description:
+          name: description
+          title: Description
+        dnssec_config:
+          name: dnssec_config
+          title: Dnssec Config
+        domain:
+          name: domain
+          title: Domain
+        enable_logging:
+          name: enable_logging
+          title: Enable Logging
+        force_destroy:
+          name: force_destroy
+          title: Force Destroy
+        gke_clusters_list:
+          name: gke_clusters_list
+          title: Gke Clusters List
+          level: 1
+        iam_choice:
+          name: iam_choice
+          title: Iam Choice
+          level: 1
+        labels:
+          name: labels
+          title: Labels
+          level: 1
+        member:
+          name: member
+          title: Member
+          level: 1
+        members:
+          name: members
+          title: Members
+          level: 1
+        name:
+          name: name
+          title: Name
+        private_visibility_config_networks:
+          name: private_visibility_config_networks
+          title: Private Visibility Config Networks
+          level: 1
+        project_id:
+          name: project_id
+          title: Project Id
+        recordsets:
+          name: recordsets
+          title: Recordsets
+          level: 1
+        role:
+          name: role
+          title: Role
+          level: 1
+        service_namespace_url:
+          name: service_namespace_url
+          title: Service Namespace Url
+        target_name_server_addresses:
+          name: target_name_server_addresses
+          title: Target Name Server Addresses
+        target_network:
+          name: target_network
+          title: Target Network
+        type:
+          name: type
+          title: Type
+          level: 1
+    runtime:
+      outputs:
+        domain:
+          visibility: VISIBILITY_ROOT

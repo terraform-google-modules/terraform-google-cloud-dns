@@ -34,6 +34,12 @@ variable "private_visibility_config_networks" {
   type        = list(string)
 }
 
+variable "gke_clusters_list" {
+  description = "The list of Google Kubernetes Engine clusters that can see this zone."
+  default     = []
+  type        = list(string)
+}
+
 variable "project_id" {
   description = "Project id for the zone."
   type        = string
@@ -129,4 +135,32 @@ variable "enable_logging" {
   description = "Enable query logging for this ManagedZone"
   default     = false
   type        = bool
+}
+
+###############################################################################
+#                             zone_iam variables                              #
+###############################################################################
+
+variable "iam_choice" {
+  description = "Choose one of the following 'iam_binding', 'iam_member' or 'iam_policy' for managed zone iam"
+  type        = string
+  default     = null
+}
+
+variable "member" {
+  description = "Identities the user/service account that will be granted the privilege in role (for case: managed_zone_iam_member)"
+  type        = string
+  default     = null
+}
+
+variable "members" {
+  description = "Identities the users/service accounts that will be granted the privilege in role (for case: managed_zone_iam_policy, managed_zone_iam_binding)"
+  type        = list(string)
+  default     = null
+}
+
+variable "role" {
+  description = "The role that should be applied"
+  type        = string
+  default     = null
 }

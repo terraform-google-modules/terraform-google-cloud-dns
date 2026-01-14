@@ -67,11 +67,16 @@ Functional examples are included in the [examples](./examples/) directory.
 | domain | Zone domain, must end with a period. | `string` | n/a | yes |
 | enable\_logging | Enable query logging for this ManagedZone | `bool` | `false` | no |
 | force\_destroy | Set this true to delete all records in the zone. | `bool` | `false` | no |
+| gke\_clusters\_list | The list of Google Kubernetes Engine clusters that can see this zone. | `list(string)` | `[]` | no |
+| iam\_choice | Choose one of the following 'iam\_binding', 'iam\_member' or 'iam\_policy' for managed zone iam | `string` | `null` | no |
 | labels | A set of key/value label pairs to assign to this ManagedZone | `map(any)` | `{}` | no |
+| member | Identities the user/service account that will be granted the privilege in role (for case: managed\_zone\_iam\_member) | `string` | `null` | no |
+| members | Identities the users/service accounts that will be granted the privilege in role (for case: managed\_zone\_iam\_policy, managed\_zone\_iam\_binding) | `list(string)` | `null` | no |
 | name | Zone name, must be unique within the project. | `string` | n/a | yes |
 | private\_visibility\_config\_networks | List of VPC self links that can see this zone. | `list(string)` | `[]` | no |
 | project\_id | Project id for the zone. | `string` | n/a | yes |
 | recordsets | List of DNS record objects to manage, in the standard terraform dns structure. | <pre>list(object({<br>    name    = string<br>    type    = string<br>    ttl     = number<br>    records = optional(list(string), null)<br><br>    routing_policy = optional(object({<br>      wrr = optional(list(object({<br>        weight  = number<br>        records = list(string)<br>      })), [])<br>      geo = optional(list(object({<br>        location = string<br>        records  = list(string)<br>      })), [])<br>    }))<br>  }))</pre> | `[]` | no |
+| role | The role that should be applied | `string` | `null` | no |
 | service\_namespace\_url | The fully qualified or partial URL of the service directory namespace that should be associated with the zone. This should be formatted like https://servicedirectory.googleapis.com/v1/projects/{project}/locations/{location}/namespaces/{namespace_id} or simply projects/{project}/locations/{location}/namespaces/{namespace\_id}. | `string` | `""` | no |
 | target\_name\_server\_addresses | List of target name servers for forwarding zone. | `list(map(any))` | `[]` | no |
 | target\_network | Peering network. | `string` | `""` | no |
@@ -82,6 +87,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | Name | Description |
 |------|-------------|
 | domain | The DNS zone domain. |
+| etag | The etag of the IAM policy |
 | name | The DNS zone name. |
 | name\_servers | The DNS zone name servers. |
 | type | The DNS zone type. |

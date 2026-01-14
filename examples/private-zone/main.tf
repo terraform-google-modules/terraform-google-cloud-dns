@@ -68,4 +68,9 @@ module "dns-private-zone" {
       ]
     },
   ]
+
+  iam_choice   = "iam_policy"
+  role         = "roles/dns.reader"
+  member       = "serviceAccount:ci-account@${var.project_id}.iam.gserviceaccount.com"
+  members      = []
 }
