@@ -25,7 +25,7 @@ spec:
       repo: https://github.com/terraform-google-modules/terraform-google-cloud-dns.git
       sourceType: git
       dir: /modules/dns_response_policy
-    version: 7.0.0
+    version: 7.1.0
     description: {}
   content:
     examples:
