@@ -58,6 +58,13 @@ spec:
         description: List of VPC self links that can see this zone.
         varType: list(string)
         defaultValue: []
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-network
+              version: ">=13.0.1"
+            spec:
+              outputExpr: network_self_link
+              inputPath: private_visibility_config_networks
       - name: gke_clusters_list
         description: The list of Google Kubernetes Engine clusters that can see this zone.
         varType: list(string)

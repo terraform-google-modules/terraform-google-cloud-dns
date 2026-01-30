@@ -59,6 +59,13 @@ spec:
         description: The self links of the network to which the dns response policy needs to be applied. Note that only one response policy can be applied on a network.
         varType: list(string)
         defaultValue: []
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-network
+              version: ">=13.0.1"
+            spec:
+              outputExpr: network_self_link
+              inputPath: private_visibility_config_networks
       - name: policy_name
         description: Name of the DNS response policy.
         varType: string
