@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.1.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v7.0.0...v7.1.0) (2026-01-30)
+
+
+### Features
+
+* Adding connections to VPC ([#140](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/140)) ([e2847a8](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/e2847a8304f3234d65cf24483f2519bb5bdcdee4))
+
 ## [7.0.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v6.2.1...v7.0.0) (2026-01-14)
 
 
