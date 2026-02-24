@@ -16,7 +16,7 @@
 
 module "dns-forwarding-zone" {
   source  = "terraform-google-modules/cloud-dns/google"
-  version = "~> 6.0"
+  version = "~> 7.0"
 
   project_id = var.project_id
   type       = "forwarding"
