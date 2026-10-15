@@ -7,6 +7,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.2.1](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v7.2.0...v7.2.1) (2026-10-15)
+
+
+### Bug Fixes
+
+* populate null defaultValue in dns-managed-zone blueprint metadata ([#147](https://github.com/terraform-google-modules/terraform-google-cloud-dns/issues/147)) ([3e4da4a](https://github.com/terraform-google-modules/terraform-google-cloud-dns/commit/3e4da4accbc6d641b0d2743bacbb50f89d3b6591))
+
 ## [7.2.0](https://github.com/terraform-google-modules/terraform-google-cloud-dns/compare/v7.1.0...v7.2.0) (2026-09-09)
 
 
